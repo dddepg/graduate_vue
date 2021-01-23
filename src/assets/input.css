@@ -1,0 +1,36 @@
+.el-input__inner {
+  background-color: #000;
+  border: 1px solid #eee;
+  height: 32px;
+  font-size: 12px;
+  color: #fff;
+}
+.el-textarea__inner {
+  background-color: #000;
+  border: 1px solid #eee;
+  height: 88px;
+  color: #fff;
+}
+.el-input__inner::-webkit-input-placeholder {
+  color: #fff;
+  font-size: 12px;
+}
+.el-input__inner:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #fff;
+  font-size: 12px;
+}
+
+.el-textarea__inner::-webkit-input-placeholder,
+.el-input__inner::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #fff;
+  font-size: 12px;
+}
+
+.el-textarea__inner::-webkit-input-placeholder,
+.el-input__inner:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #fff;
+  font-size: 12px;
+}
