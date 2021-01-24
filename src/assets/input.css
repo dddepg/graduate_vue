@@ -1,36 +1,36 @@
 .el-input__inner {
-  background-color: #000;
-  border: 1px solid #eee;
+  background-color: rgb(152, 165, 175);
+  border: 1px solid rgb(3, 0, 0);
   height: 32px;
   font-size: 12px;
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 .el-textarea__inner {
   background-color: #000;
   border: 1px solid #eee;
   height: 88px;
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 .el-input__inner::-webkit-input-placeholder {
-  color: #fff;
-  font-size: 12px;
+  color: rgb(29, 27, 27);
+  font-size: 14px;
 }
 .el-input__inner:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 12px;
 }
 
 .el-textarea__inner::-webkit-input-placeholder,
 .el-input__inner::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 12px;
 }
 
 .el-textarea__inner::-webkit-input-placeholder,
 .el-input__inner:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 12px;
 }

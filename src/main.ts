@@ -5,6 +5,7 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css';
 import './assets/input.css'
+import '@/assets/icon/iconfont.css'
 
 const app = createApp(App)
 app.use(store).use(router).use(ElementPlus).mount('#app')
