@@ -17,8 +17,8 @@
             </el-row>
             <el-row>
               <el-col :span="18" :offset="3" class="inputarea">
-                <el-input placeholder="请输入账号" v-model="signnum" clearable >
-                  <template #prefix>
+                <el-input placeholder="请输入账号" v-model="usernum" clearable @input=setUserName(usernum) class="logininput">
+                  <template #prepend>
                      <i class="iconfont icon-bussiness-man"></i>
                   </template>
                 </el-input>
@@ -26,8 +26,8 @@
             </el-row>
             <el-row>
               <el-col :span="18" :offset="3" class="inputarea">
-                <el-input placeholder="请输入密码" v-model="password" clearable>
-                  <template #prefix>
+                <el-input placeholder="请输入密码" v-model="password" show-password @input=setPassWord(password)  class="logininput" >
+                  <template #prepend>
                      <i class="iconfont icon-password"></i>
                   </template>
                 </el-input>
@@ -40,33 +40,61 @@
             </el-row>
             <el-row type="flex" justify="space-around" class="loginbutton">
               <el-col :span="12">
-                <el-button>登录</el-button>
+                <el-button @click="postLogin()">登录</el-button>
               </el-col>
             </el-row>
-            <!-- <el-row type="flex" justify="space-around" class="loginbutton">
-              <el-col :span="12">
-                <el-button >注册</el-button>
-              </el-col>
-            </el-row> -->
           </div>
         </el-col>
       </el-row>
+      
     </el-main>
   </el-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-
+import { defineComponent, ref} from "vue";
+import { mapMutations } from 'vuex';
+import { ElMessage } from 'element-plus'
+import axios from "axios";
+import router from '@/router'
 export default defineComponent({
   name: "Login",
   setup() {
-    return {
-      signnum: ref(""),
-      password: ref(""),
+    const usernum =ref("")
+    const password=ref("")
+    const postLogin = async()=>{
+        const result = await axios({
+        method: "post",
+        url: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/loginTest",
+        data: {
+            username: usernum.value,
+            password: password.value,
+        },
+        });
+        console.log(result.data['result']=="2")
+        if (result.data['result']=="2"){
+          return ElMessage('用户名或密码错误')
+        }
+        else if(result.data['result']=="1"){
+          router.push('/Users')
+        }
+
+          
+        return null
     };
+    return {
+      usernum,
+      password,
+      postLogin,
+    };
+    
   },
+  methods:mapMutations([
+      'setUserName','setPassWord'
+  ]),
+  
 });
+ 
 </script>
 <style lang="stylus" scoped>
 max_size = 100%;
