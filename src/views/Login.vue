@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header><h1 class="title">科研管理系统</h1></el-header>
+    <el-header><h1 class="title">科研管理系统</h1>
+      <h2></h2>
+    </el-header>
     <el-main>
       <el-row class="loginrow" type="flex" justify="center">
         <el-col
@@ -57,9 +59,11 @@ import { mapMutations } from 'vuex';
 import { ElMessage } from 'element-plus'
 import axios from "axios";
 import router from '@/router'
+import { useStore } from "vuex";
 export default defineComponent({
   name: "Login",
   setup() {
+    const store = useStore();
     const usernum =ref("")
     const password=ref("")
     const postLogin = async()=>{
@@ -67,21 +71,20 @@ export default defineComponent({
         method: "post",
         url: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/loginTest",
         data: {
-            username: usernum.value,
-            password: password.value,
+            username: store.state.username,
+            password: store.state.password,
         },
         });
-        console.log(result.data['result']=="2")
         if (result.data['result']=="2"){
           return ElMessage('用户名或密码错误')
         }
         else if(result.data['result']=="1"){
-          router.push('/Users')
+          store.commit('setLogin',true)
+          router.push('/User')
         }
-
-          
         return null
     };
+    
     return {
       usernum,
       password,
@@ -90,7 +93,7 @@ export default defineComponent({
     
   },
   methods:mapMutations([
-      'setUserName','setPassWord'
+      'setUserName','setPassWord','setLogin'
   ]),
   
 });

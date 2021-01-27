@@ -1,25 +1,19 @@
 import { createStore } from 'vuex'
-
 export default createStore({
-  state() {
-    return {
-      username: "",
-      password: ""
-    }
+  state: {
+    username: "noname",
+    password: "nopassword",
+    islogin : false
   },
-
   mutations: {
-    setUserName(username, name) {
-      username = name
+    setUserName(state, name) {
+      state.username = name
     },
-    setPassWord(password, word) {
-      password = word
+    setPassWord(state, word) {
+      state.password = word
     },
-    getUserName(username) {
-      return username
-    },
-    getPassWord(password) {
-      return password
+    setLogin(state, whichStyle) {
+      state.islogin=whichStyle
     }
   },
   actions: {

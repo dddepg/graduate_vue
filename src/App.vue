@@ -3,10 +3,10 @@
 </template>
 
 <script>
-
-export default {
+const app = {
   name: "App",
 };
+export default app;
 </script>
 
 <style>
