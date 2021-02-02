@@ -44,9 +44,12 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name :"sidePart"
-})
+  name: "sidePart",
+});
 </script>
 
-<style>
+<style lang="stylus" scoped>
+.el-menu
+  margin-top 20px
+  border-right solid 1px rgb(74,82,89)
 </style>
