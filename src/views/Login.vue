@@ -60,6 +60,7 @@ import { ElMessage } from 'element-plus'
 import axios from "axios";
 import router from '@/router'
 import { useStore } from "vuex";
+import { ElLoading } from 'element-plus';
 export default defineComponent({
   name: "Login",
   setup() {
@@ -67,6 +68,11 @@ export default defineComponent({
     const usernum =ref("")
     const password=ref("")
     const postLogin = async()=>{
+      const loadingInstance =ElLoading.service({lock: false,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'});
+      try{
         const result = await axios({
         method: "post",
         url: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/loginTest",
@@ -76,12 +82,19 @@ export default defineComponent({
         },
         });
         if (result.data['result']=="2"){
+          loadingInstance.close()
           return ElMessage('用户名或密码错误')
         }
         else if(result.data['result']=="1"){
           store.commit('setLogin',true)
-          router.push('/User')
+          loadingInstance.close()
+          router.push('/User/first')
         }
+      }catch{
+        loadingInstance.close()
+        return ElMessage('哎呀，网络似乎有问题呢')
+      }
+        
         return null
     };
     
@@ -121,7 +134,7 @@ max_size = 100%;
 
 
 #loginarea 
-  background-color #EEEEEE
+  background-color #EEEEEE 
   opacity 0.9
   height 250px
 

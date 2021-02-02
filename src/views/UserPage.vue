@@ -6,14 +6,15 @@
       </div>
     <el-menu
       :uniqueOpened="true"
-      default-active="2"
+      default-active="/User/first"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="1">
+      active-text-color="#ffd04b"
+      router=true>
+      <el-menu-item index="/User/first">
         <template #title>
           <i class="el-icon-location"></i>
           <span>首页</span>
@@ -25,8 +26,8 @@
           <span>本校科研</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1">科研动态</el-menu-item>
-          <el-menu-item index="1-2">全部论文</el-menu-item>
+          <el-menu-item index="">科研动态</el-menu-item>
+          <el-menu-item index="">全部论文</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3">
@@ -35,16 +36,21 @@
           <span>我的主页</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1">论文管理</el-menu-item>
-          <el-menu-item index="3-2">申请表管理</el-menu-item>
-          <el-menu-item index="3-3">用户管理</el-menu-item>
+          <el-menu-item index="">论文管理</el-menu-item>
+          <el-menu-item index="">申请表管理</el-menu-item>
+          <el-menu-item index="">用户管理</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
+    <!-- <side-part/> -->
     </el-aside>
     <el-container>
-      <el-header >Header</el-header>
-      <el-main>Main</el-main>
+      <el-header >
+        <div class="header">
+
+        </div>
+      </el-header>
+      <el-main><router-view></router-view></el-main>
     </el-container>
   </el-container>
 </template>
@@ -53,9 +59,13 @@
 import { defineComponent} from "vue"
 import {useStore} from "vuex"
 import router from '@/router'
-
+import sidePart from "../views/loginPage/sidePart"
+ 
 export default defineComponent({
   name:"User",
+  components:[
+    sidePart,
+  ],
   setup(){
     const store =useStore()
     if (!store.state.islogin) router.push('/')
@@ -91,3 +101,5 @@ export default defineComponent({
     background-image url('../assets/logo.png')
     background-size cover
 </style>
+
+    SidePart
