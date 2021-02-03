@@ -7,16 +7,20 @@
     </el-carousel>
     <div class="scientific-research-trends"></div>
     <div class="newly-research"></div>
-    <div class="friendly-link"></div>
+    <friendly-link/>
     <div class="buttonback"></div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import friendlyLink from "../../components/UserPage/friendlyLink"
 
 export default defineComponent({
-    name:"FirstPage"
+    name:"FirstPage",
+    components:{
+      friendlyLink
+    }
 })
 </script>
 <style lang="stylus" scoped>
@@ -29,10 +33,6 @@ export default defineComponent({
   margin-top 20px
   height 25%
   background-color rgb(255,255,255)
-.friendly-link
-  margin-top 20px
-  background-color rgb(255,255,255)
-  height 30%
 .buttonback
   height 5%
   background-color background-color rgb(75,72,72)

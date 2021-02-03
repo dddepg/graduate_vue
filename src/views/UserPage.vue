@@ -46,12 +46,10 @@ export default defineComponent({
   .el-main 
     background-color rgb(75,72,72)
     text-align center
-    line-height 160px
   .el-header
     background-color rgb(43,47,58)
     color #333
     text-align center
-    line-height 70px
     height 50px
   .logoback
     height 60px
