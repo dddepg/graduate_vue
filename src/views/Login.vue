@@ -75,7 +75,7 @@ export default defineComponent({
       try{
         const result = await axios({
         method: "post",
-        url: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/loginTest",
+        url: store.state.loginApi,
         data: {
             username: store.state.username,
             password: store.state.password,

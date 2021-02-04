@@ -7,7 +7,7 @@
         </div>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="space-between" class="rowlink">
+    <el-row type="flex" justify="space-around" class="rowlink">
       <el-col :span="6">
         <el-link href="http://www.suibe.edu.cn/" target="_blank"><span class="links">学校主页</span></el-link>
       </el-col>
@@ -18,7 +18,7 @@
         <el-link href="http://shift.yiban.cn/" target="_blank"><span class="links">易班</span></el-link>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="space-between" class="rowlink">
+    <el-row type="flex" justify="space-around" class="rowlink">
       <el-col :span="6">
         <el-link href="http://www.suibe.edu.cn/yx/" target="_blank"><span class="links">迎新网</span></el-link>
       </el-col>

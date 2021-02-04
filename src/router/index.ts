@@ -17,6 +17,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:'first',
         component: () => import('../views/userPages/FirstPage.vue')
+      },
+      {
+        path:'wait',
+        component:()=> import('../views/WaitingDevelopPage.vue')
       }
     ]
     
