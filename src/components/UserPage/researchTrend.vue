@@ -6,7 +6,7 @@
           <h1 class="research_title_word_keyan">科研</h1>
         </div>
         <div class="research_title_word">
-          <h1 class="research_title_word_xianzhuang">现状</h1>
+          <h1 class="research_title_word_xianzhuang">动态</h1>
         </div>
       </el-col>
       <el-col :span="20">

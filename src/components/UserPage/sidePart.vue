@@ -22,7 +22,7 @@
         <span>本校科研</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="/User/wait">科研动态</el-menu-item>
+        <el-menu-item index="/User/tread">科研动态</el-menu-item>
         <el-menu-item index="/User/wait">全部论文</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
@@ -37,6 +37,12 @@
         <el-menu-item index="/User/wait">用户管理</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
+    <el-menu-item index="/User/test">
+      <template #title>
+        <i class="el-icon-location"></i>
+        <span>测试页面</span>
+      </template>
+    </el-menu-item>
   </el-menu>
 </template>
 

@@ -24,6 +24,7 @@ export default defineComponent({
       return {
         result: words.data["data"]["list"],
       };
+      
     } catch {
       ElMessage("哎呀，网络似乎有问题呢");
     }
