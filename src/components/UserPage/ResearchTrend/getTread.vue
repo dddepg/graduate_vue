@@ -38,6 +38,7 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
+  
 
 .tread_link:nth-child(2n)
   background-color rgb(224, 224, 224)

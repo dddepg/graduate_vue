@@ -1,14 +1,14 @@
 <template>
-  <div class="infinite-list" v-infinite-scroll="load" style="overflow: visable">
-    <el-link
-      v-for="(value, key) in result"
-      :key="key"
-      :href="value['URL']"
-      target="_blank"
-      class="newly_link"
-      ><span class="newly_link_word">{{ value["title"] }}</span></el-link
-    >
-    <p v-if="loading"></p>
+  <div class="all_tread_back">
+    <ul>
+      <li v-for="(value, key) in result" :key="key" class="all_tread_li">
+        <el-link :href="value['URL']" target="_blank" class="all_tread_link"
+          ><span class="all_tread_link_word">{{
+            value["title"]
+          }}</span></el-link
+        >
+      </li>
+    </ul>
   </div>
 </template>
 <script lang="ts">
@@ -20,50 +20,39 @@ export default defineComponent({
   name: "getAllTread",
   async setup() {
     const store = useStore();
-    let loading = false;
     const getApi = store.state.allTreadApiFirst;
-    const load = () => {
-      loading = true;
-      setTimeout(async () => {
-        // const thengetApi = store.state.researchTreadApi;
-        // const thenwords = await axios.get(thengetApi);
-
-        loading = false;
-      }, 500);
-    };
-    const disabled = () => {
-      return loading;
-    };
     try {
       const words = await axios.get(getApi);
       return {
         result: words.data["data"]["list"],
-        loading,
-        load,
-        disabled,
       };
     } catch {
       ElMessage("哎呀，网络似乎有问题呢");
     }
   },
-  computed: {},
-  methods: {},
 });
 </script>
 
 <style lang="stylus" scoped>
-.newly_link
-  width 100%
-  height 22%
-  margin 2px 0
-  text-align left
+.all_tread_back
+  height 80%
+  overflow-y auto
+.all_tread_li
+  margin-left 30px
+.all_tread_link
+  width 90%
+  height 30px
+  margin 2px 0 2px 30px
+  display flex
+  justify-content flex-start
 
-.newly_link:nth-child(2n)
+.all_tread_link:nth-child(2n)
   background-color rgb(224, 224, 224)
 
-.newly_link:nth-child(2n + 1)
+.all_tread_link:nth-child(2n + 1)
   background-color rgb(240, 240, 240)
 
-.newly_link_word
+.all_tread_link_word
   width 100%
+  text-align left
 </style>

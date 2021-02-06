@@ -1,6 +1,9 @@
 <template>
   <div class="tread_back_area">
-    <div class="infinite-list-wrapper" style="overflow: visible">
+    <div>
+      <h1>最新科研动态</h1>
+    </div>
+    <el-divider></el-divider>
       <Suspense>
         <template #default>
           <get-all-tread />
@@ -9,7 +12,6 @@
           <el-skeleton :rows="10" animated />
         </template>
       </Suspense>
-    </div>
   </div>
 </template>
 
@@ -30,8 +32,7 @@ export default defineComponent({
 <style lang="stylus" scoped>
 .tread_back_area
   background-color rgb(255, 255, 255)
-  margin-left 30px
-  margin-right 30px
+  margin 0 30px 
   height 100%
   overflow-y auto
 </style>

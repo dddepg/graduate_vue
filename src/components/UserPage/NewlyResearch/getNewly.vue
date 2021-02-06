@@ -14,6 +14,7 @@ import axios from "axios";
 import { ElMessage } from "element-plus";
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
+// import getWords from "@/hooks/useAxiox"
 export default defineComponent({
   name: "getnewly",
   async setup() {
@@ -23,6 +24,7 @@ export default defineComponent({
       const words = await axios.get(getApi);
       return {
         result: words.data["data"]["list"],
+        // result: words.result,
       };
     } catch {
       ElMessage("哎呀，网络似乎有问题呢");
@@ -37,7 +39,6 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
-
 .newly_link:nth-child(2n)
   background-color rgb(224, 224, 224)
 
