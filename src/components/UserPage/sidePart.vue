@@ -23,7 +23,7 @@
       </template>
       <el-menu-item-group>
         <el-menu-item index="/User/tread">科研动态</el-menu-item>
-        <el-menu-item index="/User/wait">全部论文</el-menu-item>
+        <el-menu-item index="/User/paper">全部论文</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="3">
@@ -32,7 +32,7 @@
         <span>我的主页</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="/User/wait">论文管理</el-menu-item>
+        <el-menu-item index="/User/myPaper">论文管理</el-menu-item>
         <el-menu-item index="/User/wait">申请表管理</el-menu-item>
         <el-menu-item index="/User/wait">用户管理</el-menu-item>
       </el-menu-item-group>

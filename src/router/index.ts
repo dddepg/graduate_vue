@@ -26,6 +26,14 @@ const routes: Array<RouteRecordRaw> = [
         path:'tread',
         component:()=>import('../views/userPages/ResearchTreadPage.vue')
       },
+      {
+        path:'paper',
+        component:()=>import('../views/userPages/allPaperPage.vue')
+      },
+      {
+        path:'myPaper',
+        component:()=>import('../views/userPages/myPaperPage.vue')
+      }
 
     ]
     
