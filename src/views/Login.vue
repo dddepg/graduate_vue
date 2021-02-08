@@ -66,24 +66,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { mapMutations } from "vuex";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 import router from "@/router";
 import { useStore } from "vuex";
 import { ElLoading } from "element-plus";
-import { useCookies } from '@vueuse/integrations'
+import { useCookies } from "@vueuse/integrations";
 export default defineComponent({
   name: "Login",
   setup() {
     const store = useStore();
-    const cookie = useCookies()
+    const cookie = useCookies();
     const usernum = ref("");
     const password = ref("");
-    console.log(cookie.get("user"))
+    onMounted(() => {
+      if (cookie.get("user")) {
+        store.commit("setUserName", cookie.get("user")["user"]);
+        store.commit("setLogin", true);
+        store.commit("setPassWord", "cookieLogin");
+        router.push("/User/first");
+      }
+    });
     const postLogin = async () => {
-      cookie.set('user',store.state.username)
+      cookie.set("user", store.state.username);
       const loadingInstance = ElLoading.service({
         lock: false,
         text: "Loading",
@@ -105,6 +112,7 @@ export default defineComponent({
         } else if (result.data["result"] == "1") {
           store.commit("setLogin", true);
           loadingInstance.close();
+          cookie.set("user", { user: store.state.username }, { maxAge: 86400 });
           router.push("/User/first");
         }
       } catch {
