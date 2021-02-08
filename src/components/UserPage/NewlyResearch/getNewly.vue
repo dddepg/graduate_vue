@@ -9,26 +9,21 @@
   >
 </template>
 
-<script>
-import axios from "axios";
-import { ElMessage } from "element-plus";
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-// import getWords from "@/hooks/useAxiox"
+import { getLinks } from "@/hooks/getLinks";
 export default defineComponent({
-  name: "getnewly",
+  name: "getAllPaper",
   async setup() {
     const store = useStore();
     const getApi = store.state.newlyResearchApi;
-    try {
-      const words = await axios.get(getApi);
-      return {
-        result: words.data["data"]["list"],
-        // result: words.result,
-      };
-    } catch {
-      ElMessage("哎呀，网络似乎有问题呢");
-    }
+    const result = ref();
+    const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
+    words.then((value) => {
+      result.value = value;
+    });
+    return { result };
   },
 });
 </script>
@@ -39,6 +34,7 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
+
 .newly_link:nth-child(2n)
   background-color rgb(224, 224, 224)
 

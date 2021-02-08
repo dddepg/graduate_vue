@@ -12,23 +12,20 @@
   </div>
 </template>
 <script lang="ts">
-import axios from "axios";
-import { ElMessage } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import { getLinks } from "@/hooks/getLinks";
 export default defineComponent({
   name: "getAllPaper",
   async setup() {
     const store = useStore();
     const getApi = store.state.allPaperApi;
-    try {
-      const words = await axios.get(getApi);
-      return {
-        result: words.data["data"]["list"],
-      };
-    } catch {
-      ElMessage("哎呀，网络似乎有问题呢");
-    }
+    const result = ref();
+    const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
+    words.then((value) => {
+      result.value = value;
+    });
+    return { result };
   },
 });
 </script>
@@ -37,8 +34,10 @@ export default defineComponent({
 .all_tread_back
   height 80%
   overflow-y auto
+
 .all_tread_li
   margin-left 30px
+
 .all_tread_link
   width 90%
   height 30px

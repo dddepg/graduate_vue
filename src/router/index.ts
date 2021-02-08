@@ -33,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:'myPaper',
         component:()=>import('../views/userPages/myPaperPage.vue')
+      },
+      {
+        path:'test',
+        component:()=>import('../views/userPages/test.vue')
       }
 
     ]

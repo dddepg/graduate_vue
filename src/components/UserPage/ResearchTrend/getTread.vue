@@ -9,29 +9,24 @@
   >
 </template>
 
-<script>
-import axios from "axios";
-import { ElMessage } from "element-plus";
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import { getLinks } from "@/hooks/getLinks";
 export default defineComponent({
-  name: "getTread",
+  name: "getAllPaper",
   async setup() {
     const store = useStore();
     const getApi = store.state.researchTreadApi;
-    try {
-      const words = await axios.get(getApi);
-      return {
-        result: words.data["data"]["list"],
-      };
-      
-    } catch {
-      ElMessage("哎呀，网络似乎有问题呢");
-    }
+    const result = ref();
+    const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
+    words.then((value) => {
+      result.value = value;
+    });
+    return { result };
   },
 });
 </script>
-
 <style lang="stylus" scoped>
 .tread_link
   width 100%
