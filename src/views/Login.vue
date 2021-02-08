@@ -73,13 +73,17 @@ import axios from "axios";
 import router from "@/router";
 import { useStore } from "vuex";
 import { ElLoading } from "element-plus";
+import { useCookies } from '@vueuse/integrations'
 export default defineComponent({
   name: "Login",
   setup() {
     const store = useStore();
+    const cookie = useCookies()
     const usernum = ref("");
     const password = ref("");
+    console.log(cookie.get("user"))
     const postLogin = async () => {
+      cookie.set('user',store.state.username)
       const loadingInstance = ElLoading.service({
         lock: false,
         text: "Loading",
@@ -120,6 +124,7 @@ export default defineComponent({
   methods: mapMutations(["setUserName", "setPassWord", "setLogin"]),
 });
 </script>
+
 <style lang="stylus" scoped>
 max_size = 100%
 
