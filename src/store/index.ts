@@ -9,7 +9,7 @@ export default createStore({
     newlyResearchApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/newlyResaerch",
     allTreadApiFirst: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",
     allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",
-
+    myPaperApi:"https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/Mypaper",
 
     testApi:"https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/test",
   },

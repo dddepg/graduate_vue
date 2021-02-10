@@ -6,7 +6,7 @@
     <el-divider></el-divider>
     <Suspense>
       <template #default>
-          <div></div>
+         <get-my-paper/>
       </template>
       <template #fallback>
         <el-skeleton :rows="10" animated />
@@ -15,9 +15,11 @@
   </div>
 </template>
 <script lang="ts">
+import getMyPaper from "@/components/UserPage/MyPaperPage/getMyPaper.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: { getMyPaper },
   name: "myPaperPage",
 });
 </script>
