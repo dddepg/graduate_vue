@@ -34,7 +34,7 @@
       <el-menu-item-group>
         <el-menu-item index="/User/myPaper">论文管理</el-menu-item>
         <el-menu-item index="/User/wait">申请表管理</el-menu-item>
-        <el-menu-item index="/User/wait">用户管理</el-menu-item>
+        <el-menu-item index="/User/usermanage">用户管理</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <!-- <el-menu-item index="/User/test" >
