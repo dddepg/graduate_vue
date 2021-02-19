@@ -1,12 +1,12 @@
 <template>
   <div class="backarea">
-    <el-carousel indicator-position="none">
+    <el-carousel  trigger="click">
       <el-carousel-item v-for="item in 4" :key="item">
         <h3>{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
     <research-trend />
-    <newly-research/>
+    <newly-research />
     <friendly-link />
     <div class="buttonback"></div>
   </div>

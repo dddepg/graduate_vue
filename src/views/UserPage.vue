@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside>
+    <el-aside class="hidden-sm-only" >
       <div class="logoback">
         <div class="logodiv"></div>
       </div>
@@ -21,7 +21,7 @@ import { useStore } from "vuex";
 import router from "@/router";
 import sidePart from "../components/UserPage/sidePart";
 import HeadPart from "@/components/UserPage/headPart.vue";
-
+import 'element-plus/lib/theme-chalk/display.css';
 export default defineComponent({
   name: "User",
   components: {

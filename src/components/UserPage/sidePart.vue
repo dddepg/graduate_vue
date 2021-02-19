@@ -3,12 +3,10 @@
     :uniqueOpened="true"
     default-active="/User/first"
     class="el-menu-vertical-demo"
-    @open="handleOpen"
-    @close="handleClose"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
-    router="true"
+    :router="true"
   >
     <el-menu-item index="/User/first">
       <template #title>
@@ -48,7 +46,6 @@
 
 <script>
 import { defineComponent } from "vue";
-
 export default defineComponent({
   name: "sidePart",
 });
