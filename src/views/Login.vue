@@ -74,6 +74,7 @@ import router from "@/router";
 import { useStore } from "vuex";
 import { ElLoading } from "element-plus";
 import { useCookies } from "@vueuse/integrations";
+import qs from "qs";
 export default defineComponent({
   name: "Login",
   setup() {
@@ -90,7 +91,6 @@ export default defineComponent({
       }
     });
     const postLogin = async () => {
-      cookie.set("user", store.state.username);
       const loadingInstance = ElLoading.service({
         lock: false,
         text: "Loading",
@@ -98,18 +98,23 @@ export default defineComponent({
         background: "rgba(0, 0, 0, 0.7)",
       });
       try {
+        const data = {
+          username: store.state.username,
+          password: store.state.password,
+        };
         const result = await axios({
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
           method: "post",
           url: store.state.loginApi,
-          data: {
-            username: store.state.username,
-            password: store.state.password,
-          },
+          data: qs.stringify(data),
         });
         if (result.data["result"] == "2") {
           loadingInstance.close();
           return ElMessage("用户名或密码错误");
         } else if (result.data["result"] == "1") {
+          cookie.set("user", store.state.username);
           store.commit("setLogin", true);
           loadingInstance.close();
           cookie.set("user", { user: store.state.username }, { maxAge: 86400 });

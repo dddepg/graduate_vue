@@ -11,7 +11,7 @@ export default createStore({
     password: "nopassword",
     islogin: false,
     droweropen: false,
-    loginApi: "http://localhost:5000/login",
+    loginApi: "https://dddepg.top/graduate/login",
     researchTreadApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/tread",
     newlyResearchApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/newlyResaerch",
     allTreadApiFirst: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",

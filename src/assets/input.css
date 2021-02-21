@@ -15,10 +15,9 @@
   background-color: rgb(150, 158, 231);
   padding-left: 5px;
   padding-right: 5px;
-}
-
-.logininput .el-input-group__prepend {
-  padding: 0, 5px;
+  color: #000;
+  font-size: 20px;
+  font-weight:bold;
 }
 .el-input__inner::-webkit-input-placeholder {
   color: rgb(29, 27, 27);
