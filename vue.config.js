@@ -1,18 +1,10 @@
 module.exports = {
-  publicPath: "/graduate_design",
-  assetsDir: "static",
+  publicPath: '/graduate_design',
+  assetsDir: 'static',
   productionSourceMap: false,
+  runtimeCompiler:true,
   pluginOptions: {
     compression: {
-      brotli: {
-        filename: "[path].br[query]",
-        algorithm: "brotliCompress",
-        include: /\.(js|css|html|svg|json)(\?.*)?$/i,
-        compressionOptions: {
-          level: 11,
-        },
-        minRatio: 0.8,
-      },
       gzip: {
         filename: "[path].gz[query]",
         algorithm: "gzip",

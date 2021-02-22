@@ -14,7 +14,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.icon-shangchuan:before {
+  content: "\e646";
+}
 .icon-liebiao:before {
   content: "\e60c";
 }

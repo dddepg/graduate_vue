@@ -4,14 +4,14 @@
       <h1>最新科研动态</h1>
     </div>
     <el-divider></el-divider>
-      <Suspense>
-        <template #default>
-          <get-all-tread />
-        </template>
-        <template #fallback>
-          <el-skeleton :rows="10" animated />
-        </template>
-      </Suspense>
+    <Suspense>
+      <template #default>
+        <get-all-tread />
+      </template>
+      <template #fallback>
+        <el-skeleton :rows="10" animated />
+      </template>
+    </Suspense>
   </div>
 </template>
 
@@ -24,15 +24,17 @@ export default defineComponent({
   components: {
     getAllTread,
   },
-
- 
 });
 </script>
 
 <style lang="stylus" scoped>
 .tread_back_area
   background-color rgb(255, 255, 255)
-  margin 0 30px 
+  margin 0 30px
   height 100%
   overflow-y auto
+.testdiv
+  height 100%
+  background-color black
+  width 100%
 </style>

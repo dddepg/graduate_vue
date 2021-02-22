@@ -1,5 +1,11 @@
 <template>
-  <div class="all_tread_back">
+  <div
+    class="all_tread_back"
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <ul>
       <li v-for="(value, key) in result" :key="key" class="all_tread_li">
         <el-link :href="value['URL']" target="_blank" class="all_tread_link"
@@ -19,13 +25,15 @@ export default defineComponent({
   name: "getAllPaper",
   async setup() {
     const store = useStore();
+    const loading = ref(true);
     const getApi = store.state.allPaperApi;
     const result = ref();
     const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
     words.then((value) => {
       result.value = value;
+      loading.value = false;
     });
-    return { result };
+    return { result, loading };
   },
 });
 </script>

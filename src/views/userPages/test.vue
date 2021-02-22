@@ -1,13 +1,13 @@
 <template>
   <div class="tread_back_area">
-    <Suspense>
-      <template #default>
+    <!-- <Suspense>
+      <template #default> -->
         <get-test />
-      </template>
+      <!-- </template>
       <template #fallback>
-        <el-skeleton animated />
+        <div>正在拼了命的加载…</div>
       </template>
-    </Suspense>
+    </Suspense> -->
   </div>
 </template>
 <script lang="ts">

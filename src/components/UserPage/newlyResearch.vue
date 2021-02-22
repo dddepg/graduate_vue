@@ -14,11 +14,11 @@
       </el-col>
       <el-col :xs="24" :md="20" :lg="20" :xl="20" :sm="24">
         <Suspense>
+          <template #fallback>
+            <el-skeleton :rows="5" animated />
+          </template>
           <template #default>
             <get-newly />
-          </template>
-          <template #fallback>
-            <el-skeleton animated />
           </template>
         </Suspense>
       </el-col>

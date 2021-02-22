@@ -1,12 +1,19 @@
 <template>
-  <el-link
-    v-for="(value, key) in result"
-    :key="key"
-    :href="value['URL']"
-    target="_blank"
-    class="tread_link"
-    ><span class="tread_link_word">{{ value["title"] }}</span></el-link
+  <div class="loadback"
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
   >
+    <el-link
+      v-for="(value, key) in result"
+      :key="key"
+      :href="value['URL']"
+      target="_blank"
+      class="tread_link"
+      ><span class="tread_link_word">{{ value["title"] }}</span></el-link
+    >
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,13 +24,15 @@ export default defineComponent({
   name: "getAllPaper",
   async setup() {
     const store = useStore();
+    const loading = ref(true);
     const getApi = store.state.researchTreadApi;
     const result = ref();
     const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
     words.then((value) => {
       result.value = value;
+      loading.value = false;
     });
-    return { result };
+    return { result, loading };
   },
 });
 </script>
@@ -33,7 +42,7 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
-  
+
 
 .tread_link:nth-child(2n)
   background-color rgb(224, 224, 224)
@@ -43,4 +52,6 @@ export default defineComponent({
 
 .tread_link_word
   width 100%
+.loadback
+  height 100%
 </style>
