@@ -1,8 +1,17 @@
 <template>
   <div class="backarea">
     <el-carousel  trigger="click">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item >
+        <div class="head_carousel head_img_1"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_2"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_3"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_4"></div>
       </el-carousel-item>
     </el-carousel>
     <research-trend />
@@ -32,6 +41,20 @@ export default defineComponent({
 
 .el-carousel--horizontal
   height 45%
+.head_carousel
+  height 100%
+.head_img_1
+  background-image url('../assets/1.jpg')
+  background-size 100%, cover
+.head_img_2
+  background-image url('../assets/2.png')
+  background-size 100%, cover
+.head_img_3
+  background-image url('../assets/3.jpg')
+  background-size 100%, cover
+.head_img_4
+  background-image url('../assets/4.png')
+  background-size 100%, cover
 
 .scientific-research-trends, .newly-research
   margin-top 20px

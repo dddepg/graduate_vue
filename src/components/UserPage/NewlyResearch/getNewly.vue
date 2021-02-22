@@ -20,7 +20,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { getLinks } from "@/hooks/getLinks";
+// import { getLinks } from "@/hooks/getLinks";
+import {getTrueLinks}from "@/hooks/getTrueLink"
 export default defineComponent({
   name: "getAllPaper",
   async setup() {
@@ -28,7 +29,7 @@ export default defineComponent({
     const loading = ref(true);
     const getApi = store.state.newlyResearchApi;
     const result = ref();
-    const words: Promise<{ URL: string; title: string }> = getLinks(getApi);
+    const words: Promise<{ URL: string; title: string }> = getTrueLinks(getApi);
     words.then((value) => {
       result.value = value;
       loading.value = false;

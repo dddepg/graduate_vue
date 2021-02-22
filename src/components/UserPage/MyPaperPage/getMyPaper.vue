@@ -39,14 +39,7 @@
             @click="handleDelete(scope.$index)"
           ></el-button>
         </el-tooltip>
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="重新上传"
-          placement="bottom-start"
-        >
-          <el-button icon="icon icon-shangchuan" circle></el-button>
-        </el-tooltip>
+       
       </template>
     </el-table-column>
   </el-table>
