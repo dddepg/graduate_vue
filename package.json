@@ -10,10 +10,9 @@
   "dependencies": {
     "@vueuse/core": "^4.1.0",
     "@vueuse/integrations": "^4.1.0",
-    "compression-webpack-plugin": "^7.1.2",
+    "compression-webpack-plugin": "6.0.0",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.28",
-    "image-webpack-loader": "^7.0.1",
     "serve": "^11.3.2",
     "universal-cookie": "^4.0.4",
     "vue": "^3.0.0",
