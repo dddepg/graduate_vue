@@ -1,6 +1,20 @@
 <template>
   <div class="backarea">
-    <el-carousel  trigger="click">
+    <el-carousel  indicator-position="none" type="card" class="hidden-xs-only largecarousel">
+      <el-carousel-item >
+        <div class="head_carousel head_img_1"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_2"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_3"></div>
+      </el-carousel-item>
+      <el-carousel-item >
+        <div class="head_carousel head_img_4"></div>
+      </el-carousel-item>
+    </el-carousel>
+    <el-carousel  trigger="click" class="hidden-sm-and-up smallcarousel">
       <el-carousel-item >
         <div class="head_carousel head_img_1"></div>
       </el-carousel-item>
@@ -26,6 +40,7 @@ import NewlyResearch from "@/components/UserPage/newlyResearch.vue";
 import { defineComponent } from "vue";
 import friendlyLink from "../../components/UserPage/friendlyLink";
 import researchTrend from "../../components/UserPage/researchTrend";
+import 'element-plus/lib/theme-chalk/display.css';
 export default defineComponent({
   name: "FirstPage",
   components: {
@@ -39,21 +54,23 @@ export default defineComponent({
 .backarea
   height 100%
 
-.el-carousel--horizontal
+.largecarousel
   height 45%
+.smallcarousel
+  height 30%
 .head_carousel
   height 100%
 .head_img_1
-  background-image url('../assets/1.jpg')
+  background-image url('../../assets/1.jpg')
   background-size 100%, cover
 .head_img_2
-  background-image url('../assets/2.png')
+  background-image url('../../assets/2.png')
   background-size 100%, cover
 .head_img_3
-  background-image url('../assets/3.jpg')
+  background-image url('../../assets/3.jpg')
   background-size 100%, cover
 .head_img_4
-  background-image url('../assets/4.png')
+  background-image url('../../assets/4.png')
   background-size 100%, cover
 
 .scientific-research-trends, .newly-research

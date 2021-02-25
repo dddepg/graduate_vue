@@ -45,6 +45,11 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  display flex
+  justify-content flex-start
 
 .newly_link:nth-child(2n)
   background-color rgb(224, 224, 224)
@@ -54,6 +59,8 @@ export default defineComponent({
 
 .newly_link_word
   width 100%
+  overflow hidden
+  text-overflow ellipsis
 .loadback
   height 100%
 </style>

@@ -15,7 +15,7 @@ export default createStore({
     researchTreadApi: "https://dddepg.top/graduate/newly",
     newlyResearchApi: "https://dddepg.top/graduate/tread",
     allTreadApiFirst: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",
-    allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",
+    allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/allpaper/api",
     myPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/Mypaper",
 
 

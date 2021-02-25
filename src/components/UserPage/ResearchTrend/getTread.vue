@@ -11,7 +11,7 @@
       :href="value['URL']"
       target="_blank"
       class="tread_link"
-      ><span class="tread_link_word">{{ value["title"] }}</span></el-link
+      >{{ value["title"] }}</el-link
     >
   </div>
 </template>
@@ -43,7 +43,11 @@ export default defineComponent({
   height 22%
   margin 2px 0
   text-align left
-
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  display flex
+  justify-content flex-start
 
 .tread_link:nth-child(2n)
   background-color rgb(224, 224, 224)
@@ -53,6 +57,8 @@ export default defineComponent({
 
 .tread_link_word
   width 100%
+  overflow hidden
+  text-overflow ellipsis
 .loadback
   height 100%
 </style>

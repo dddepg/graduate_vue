@@ -1,8 +1,8 @@
 module.exports = {
-  publicPath: '/graduate_design',
-  assetsDir: 'static',
+  publicPath: "/graduate_design",
+  assetsDir: "static",
   productionSourceMap: false,
-  runtimeCompiler:true,
+  runtimeCompiler: true,
   pluginOptions: {
     compression: {
       gzip: {
@@ -11,12 +11,12 @@ module.exports = {
         include: /\.(js|css|html|svg|json)(\?.*)?$/i,
         minRatio: 0.8,
       },
-      configureWebpack: {
-        // 关闭 webpack 的性能提示
-         performance: {
-           hints:false
-         }
-      },    
+    },
+    configureWebpack: {
+      // 关闭 webpack 的性能提示
+      performance: {
+        hints: false,
+      },
     },
   },
 };
