@@ -10,21 +10,28 @@
       :data="result"
       style="width: 100%"
       border
+      stripe
       height="480"
       :default-sort="{ prop: 'date', order: 'descending' }"
     >
-      <el-table-column prop="title" label="标题" width="400" fixed> </el-table-column>
+      <el-table-column type="expand" fixed>
+        <template #default="props">
+          <el-table :data="props.row.keyWord" style="width: 100%" stripe border>
+            <el-table-column prop="key" label="关键字" width="180">
+            </el-table-column>
+          </el-table>
+        </template>
+      </el-table-column>
+      <el-table-column prop="title" label="标题" width="400" fixed>
+      </el-table-column>
       <el-table-column prop="author" label="作者" width="230" sortable>
       </el-table-column>
       <el-table-column prop="date" label="上传日期" width="230" sortable>
       </el-table-column>
       <el-table-column align="center" fixed="right">
         <template #header>
-        <el-input
-          v-model="search"
-          size="mini"
-          placeholder="输入关键字搜索"/>
-      </template>
+          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
+        </template>
         <template #default="scope">
           <el-tooltip
             class="item"

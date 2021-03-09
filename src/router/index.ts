@@ -41,6 +41,16 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:'usermanage',
         component:()=>import('../views/userPages/userManagePage.vue')
+      },
+      {
+        path:'tablePage',
+        component:()=>import('../views/userPages/TablePage.vue'),
+        children:[
+          {
+            path:'table',
+            component:()=>import('@/components/UserPage/TablePage/selectTemplate.vue')
+          },
+        ]
       }
 
     ]
