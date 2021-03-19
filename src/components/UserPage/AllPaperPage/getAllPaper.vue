@@ -78,7 +78,10 @@ export default defineComponent({
       result.value = value;
       loading.value = false;
     });
-    return { result, loading };
+    const gopaper = (url: string): void => {
+      window.open(url, "_blank");
+    };
+    return { result, loading,gopaper };
   },
 });
 </script>

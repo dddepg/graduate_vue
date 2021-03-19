@@ -50,6 +50,10 @@ const routes: Array<RouteRecordRaw> = [
             path:'table',
             component:()=>import('@/components/UserPage/TablePage/selectTemplate.vue')
           },
+          {
+            path:'basic',
+            component:()=>import('@/components/UserPage/TablePage/basicTableInfo.vue')
+          }
         ]
       }
 

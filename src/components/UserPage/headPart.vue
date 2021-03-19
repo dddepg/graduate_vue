@@ -37,7 +37,7 @@ export default defineComponent({
   },
   setup() {
     const store =useStore()
-    const name = store.state.username;
+    const name = store.state.userTruename;
     const drawer = ref(false);
     const direction = ref("ltr");
     const openDrawer = () => {

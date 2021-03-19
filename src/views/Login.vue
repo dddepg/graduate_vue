@@ -85,6 +85,9 @@ export default defineComponent({
     onMounted(() => {
       if (cookie.get("user")) {
         store.commit("setUserName", cookie.get("user")["user"]);
+        store.state.userTruename=cookie.get("user")["name"]
+        store.state.userid=cookie.get("user")["id"]
+        store.state.userpower=cookie.get("user")["power"]
         store.commit("setLogin", true);
         store.commit("setPassWord", "cookieLogin");
         router.push("/User/first");
@@ -114,11 +117,18 @@ export default defineComponent({
           loadingInstance.close();
           return ElMessage("用户名或密码错误");
         } else if (result.data["result"] == "1") {
-          cookie.set("user", store.state.username);
           store.commit("setLogin", true);
+          store.state.userTruename=result.data["userTrueName"]
+          store.state.userid=result.data["userID"]
+          store.state.userpower=result.data["userPower"]
           loadingInstance.close();
-          cookie.set("user", { user: store.state.username }, { maxAge: 86400 });
-          router.push("/User/first");
+          cookie.set("user", { user: store.state.username,name: store.state.userTruename,id: store.state.userid,power: store.state.userpower}, { maxAge: 86400 });
+          if (store.state.userpower==1){
+             router.push("/User/first");
+          } else {
+            router.push("/User/first");
+          }
+           
         }
       } catch {
         loadingInstance.close();
