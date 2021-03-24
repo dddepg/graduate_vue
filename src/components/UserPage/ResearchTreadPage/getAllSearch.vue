@@ -22,11 +22,11 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { getTrueLinks } from "@/hooks/getTrueLink";
 export default defineComponent({
-  name: "getAllPaper",
+  name: "getAllSearch",
   async setup() {
     const store = useStore();
     const loading = ref(true);
-    const getApi = store.state.allTreadApiFirst;
+    const getApi = store.state.allSearchApi;
     const result = ref();
     const words: Promise<{ URL: string; title: string }> = getTrueLinks(getApi);
     words.then((value) => {

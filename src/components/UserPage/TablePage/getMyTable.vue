@@ -8,8 +8,8 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
     class="my_paper_table"
   >
-    <el-table-column label="论文名称" prop="title"> </el-table-column>
-    <el-table-column label="上传时间" prop="date" sortable> </el-table-column>
+    <el-table-column label="申请表标题" prop="title"> </el-table-column>
+    <el-table-column label="创建时间" prop="date" sortable> </el-table-column>
     <el-table-column align="center">
       <template #header>
         <h3>操作</h3>
@@ -18,19 +18,7 @@
         <el-tooltip
           class="item"
           effect="dark"
-          content="查看论文"
-          placement="bottom-start"
-        >
-          <el-button
-            icon="el-icon-view"
-            circle
-            @click="gopaper(scope.row['URL'])"
-          ></el-button>
-        </el-tooltip>
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="删除论文"
+          content="删除申请表"
           placement="bottom-start"
         >
           <el-button
@@ -42,23 +30,11 @@
         <el-tooltip
           class="item"
           effect="dark"
-          content="下载论文"
+          content="下载申请表"
           placement="bottom-start"
         >
           <el-button
             icon="iconfont icon-download"
-            circle
-            @click="gopaper(scope.row['URL'])"
-          ></el-button>
-        </el-tooltip>
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="共享管理"
-          placement="bottom-start"
-        >
-          <el-button
-            icon="el-icon-s-tools"
             circle
             @click="gopaper(scope.row['URL'])"
           ></el-button>
@@ -68,7 +44,7 @@
   </el-table>
 
   <el-dialog title="警告" v-model="dialogVisible" width="30%">
-    <span>论文一经删除无法恢复，确定删除论文？</span>
+    <span>申请表一经删除无法恢复，确定删除申请表？</span>
     <template #footer>
       <span class="dialog-footer">
         <el-button type="primary" @click="sureDelet()">确 定</el-button>

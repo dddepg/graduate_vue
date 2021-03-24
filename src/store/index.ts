@@ -15,14 +15,17 @@ export default createStore({
     islogin: false,
     droweropen: false,
     loginApi: "https://dddepg.top/graduate/login",
-    
+    changeApi:"",
     researchTreadApi: "https://dddepg.top/graduate/newly",
     newlyResearchApi: "https://dddepg.top/graduate/tread",
-    allTreadApiFirst: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/getAllTread",
+    userInfoApi: "https://dddepg.top/graduate/userInfo",
+    allTreadApiFirst: "https://dddepg.top/graduate/allnewly",
+    allSearchApi:"https://dddepg.top/graduate/alltread",
+
     allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/allpaper/api",
     myPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/Mypaper",
 
-    userInfoApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/userInfo",
+    
 
     testApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/test",
   },

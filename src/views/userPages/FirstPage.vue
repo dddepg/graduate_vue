@@ -61,10 +61,10 @@ export default defineComponent({
 .head_carousel
   height 100%
 .head_img_1
-  background-image url('../../assets/1.jpg')
+  background-image url('../../assets/1.png')
   background-size 100%, cover
 .head_img_2
-  background-image url('../../assets/2.png')
+  background-image url('../../assets/2.jpg')
   background-size 100%, cover
 .head_img_3
   background-image url('../../assets/3.jpg')

@@ -28,7 +28,7 @@
                   class="logininput"
                 >
                   <template #prepend>
-                    <i class="iconfont icon-bussiness-man"></i>
+                    <i class="iconfont icon-yonghu"></i>
                   </template>
                 </el-input>
               </el-col>
@@ -43,7 +43,7 @@
                   class="logininput"
                 >
                   <template #prepend>
-                    <i class="iconfont icon-password"></i>
+                    <i class="iconfont icon-mima"></i>
                   </template>
                 </el-input>
               </el-col>

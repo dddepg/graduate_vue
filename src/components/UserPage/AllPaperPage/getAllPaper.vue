@@ -29,9 +29,9 @@
       <el-table-column prop="date" label="上传日期" width="230" sortable>
       </el-table-column>
       <el-table-column align="center" fixed="right">
-        <template #header>
+        <!-- <template #header>
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-        </template>
+        </template> -->
         <template #default="scope">
           <el-tooltip
             class="item"
@@ -48,11 +48,11 @@
           <el-tooltip
             class="item"
             effect="dark"
-            content="查看论文"
+            content="下载论文"
             placement="bottom-start"
           >
             <el-button
-              icon="el-icon-view"
+              icon="iconfont icon-download"
               circle
               @click="gopaper(scope.row['URL'])"
             ></el-button>
