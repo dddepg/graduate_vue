@@ -1,34 +1,43 @@
 <template>
   <div>
-    <el-link v-for="(value, i) in result" :key="i" :href="value['URL']">
-      {{ value["title"] }}
-    </el-link>
+    {{result['result']}}
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { getLinks } from "@/hooks/getLinks";
+// import { getLinks } from "@/hooks/getLinks";
 import { useStore } from "vuex";
-import { ElLoading } from "element-plus";
+// import { ElLoading } from "element-plus";
+import axios from 'axios';
+import qs from "qs";
 export default defineComponent({
   name: "getTest",
-  setup() {
+  async setup() {
     const store = useStore();
-    const result = ref();
-    const loadingInstance = ElLoading.service({
-      lock: false,
-      text: "Loading",
-      spinner: "el-icon-loading",
-      background: "rgba(0, 0, 0, 0.7)",
-    });
-    const words: Promise<{ URL: string; title: string }> = getLinks(
-      store.state.testApi
-    );
-    words.then((value) => {
-      result.value = value;
-      loadingInstance.close();
-    });
-
+    const result = ref()
+    // const loadingInstance = ElLoading.service({
+    //   lock: false,
+    //   text: "Loading",
+    //   spinner: "el-icon-loading",
+    //   background: "rgba(0, 0, 0, 0.7)",
+    // });
+    const url=store.state.testApi
+    const data={id: store.state.userid}
+    result.value = await await axios({
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+          url: url,
+          data: qs.stringify(data),
+        })
+        .then(function (response) {
+            return response.data
+        })
+        .catch(function () {
+            return "error";
+        });
+   
     return {
       result,
     };

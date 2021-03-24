@@ -27,7 +27,7 @@ export default createStore({
 
     
 
-    testApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/test",
+    testApi: "https://dddepg.top/graduate/userInfo",
   },
   mutations: {
     setUserName(state, name) {
