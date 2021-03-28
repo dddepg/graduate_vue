@@ -21,7 +21,11 @@ export default createStore({
     userInfoApi: "https://dddepg.top/graduate/userInfo",
     allTreadApiFirst: "https://dddepg.top/graduate/allnewly",
     allSearchApi:"https://dddepg.top/graduate/alltread",
+    updataPDFApi:"https://dddepg.top/graduate/updataPDF",
+    addpdfInfoApi:"https://dddepg.top/graduate/addpdfInfo",
 
+
+    
     allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/allpaper/api",
     myPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/Mypaper",
 

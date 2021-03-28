@@ -50,7 +50,6 @@
     title="确认选择"
     v-model="dialogVisible"
     width="30%"
-    :before-close="handleClose"
   >
     <span>{{ title }}</span>
     <template #footer>

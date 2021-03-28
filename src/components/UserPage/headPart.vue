@@ -6,7 +6,7 @@
       ></el-button>
     </el-col>
     <el-col :xs="12" :sm="12" :md="24" :lg="24" :xl="24">
-      <div class="head_back">欢迎 {{ name }}</div>
+      <div class="head_back">欢迎 {{ store.state.userTruename }}</div>
     </el-col>
   </el-row>
 
@@ -37,13 +37,12 @@ export default defineComponent({
   },
   setup() {
     const store =useStore()
-    const name = ref(store.state.userTruename);
     const drawer = ref(false);
     const direction = ref("ltr");
     const openDrawer = () => {
       drawer.value = true;
     };
-    return { name, drawer, direction, openDrawer};
+    return {drawer, direction, openDrawer,store};
   },
 });
 </script>
