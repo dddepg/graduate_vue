@@ -49,6 +49,7 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 import qs from "qs";
@@ -60,7 +61,6 @@ export default defineComponent({
     const name = ref(store.state.userTruename);
     const email = ref("");
     const tele = ref();
-    const allow = ref(false);
     const rules = ref({
       mytele: [
         { required: true, message: "电话不能为空" },
@@ -98,42 +98,48 @@ export default defineComponent({
         tele.value = result["tele"];
         showForm.value["myemail"] = result["email"];
         showForm.value["mytele"] = Number.parseInt(result["tele"]);
-        if (result["tele"] != "" && result["email"] != "") {
-          allow.value = true;
-        }
       }
     } catch {
       return ElMessage("哎呀，网络似乎有问题呢");
     }
 
     const change = async () => {
-      if (allow.value) {
-        const changeApi = store.state.changeApi;
-        try {
-          const changedata = {
-            id: store.state.userid,
-            tele: showForm.value["mytele"],
-            email: showForm.value["myemail"],
-          };
-          const changeresult = await axios({
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "post",
-            url: changeApi,
-            data: qs.stringify(changedata),
-          });
-          if (changeresult.data["result"] == "2") {
-            return ElMessage(changeresult.data["msg"]);
-          } else if (changeresult.data["result"] == "1") {
-            email.value = showForm.value["myemail"];
-            tele.value = showForm.value["mytele"];
-          }
-        } catch {
-          return ElMessage("哎呀，网络似乎有问题呢");
+      const loadingInstance = ElLoading.service({
+        lock: false,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      const changeApi = store.state.changeApi;
+      try {
+        const changedata = {
+          id: store.state.userid,
+          tele: showForm.value["mytele"],
+          email: showForm.value["myemail"],
+          name: showForm.value["myname"],
+        };
+        const changeresult = await axios({
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+          url: changeApi,
+          data: qs.stringify(changedata),
+        });
+        if (changeresult.data["result"] == "2") {
+          loadingInstance.close();
+          return ElMessage(changeresult.data["msg"]);
+        } else if (changeresult.data["result"] == "1") {
+          email.value = showForm.value["myemail"];
+          tele.value = showForm.value["mytele"];
+          store.state.userTruename = showForm.value["myname"];
+          name.value = showForm.value["myname"];
+          loadingInstance.close();
+          return ElMessage("修改成功");
         }
-      } else {
-        return ElMessage("请正确填写字段");
+      } catch {
+        loadingInstance.close();
+        return ElMessage("哎呀，网络似乎有问题呢");
       }
     };
     return {
@@ -151,10 +157,9 @@ export default defineComponent({
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.allow.value = true;
           this.change();
         } else {
-          this.change();
+          return ElMessage("请正确填写字段");
         }
       });
     },

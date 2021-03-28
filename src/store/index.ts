@@ -15,7 +15,7 @@ export default createStore({
     islogin: false,
     droweropen: false,
     loginApi: "https://dddepg.top/graduate/login",
-    changeApi:"",
+    changeApi:"https://dddepg.top/graduate/changeUserInfo",
     researchTreadApi: "https://dddepg.top/graduate/newly",
     newlyResearchApi: "https://dddepg.top/graduate/tread",
     userInfoApi: "https://dddepg.top/graduate/userInfo",

@@ -54,15 +54,21 @@ export default defineComponent({
       age: "",
     };
     const e = ref(numberValidateForm);
+    const a =ref(3)
+    const b=()=>{
+      a.value++
+    }
     return {
-      e,
+      e,a,b
     };
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          console.log(this.a)
+          this.b()
+          console.log(this.a)
         } else {
           console.log("error submit!!");
           return false;
