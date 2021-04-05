@@ -9,7 +9,7 @@
           <el-divider></el-divider>
           <Suspense>
             <template #default>
-              <get-my-paper />
+              <get-my-paper :key="flag" />
             </template>
             <template #fallback>
               <el-skeleton :rows="10" animated />
@@ -60,23 +60,23 @@
           </el-form-item>
           <el-form-item label="论文类别">
             <el-select
-              v-model.number="paperInfo.papertype"
+              v-model="paperInfo.papertype"
               placeholder="请选择论文类别"
             >
-              <el-option label="基础科学" :value="1"></el-option>
-              <el-option label="工程科技" :value="2"></el-option>
-              <el-option label="农业科技" :value="3"></el-option>
-              <el-option label="医药卫生科技" :value="4"></el-option>
-              <el-option label="哲学与人文科学" :value="5"></el-option>
-              <el-option label="社会科学" :value="6"></el-option>
-              <el-option label="信息科技" :value="7"></el-option>
-              <el-option label="经济与管理科学" :value="8"></el-option>
+              <el-option label="基础科学" value="1"></el-option>
+              <el-option label="工程科技" value="2"></el-option>
+              <el-option label="农业科技" value="3"></el-option>
+              <el-option label="医药卫生科技" value="4"></el-option>
+              <el-option label="哲学与人文科学" value="5"></el-option>
+              <el-option label="社会科学" value="6"></el-option>
+              <el-option label="信息科技" value="7"></el-option>
+              <el-option label="经济与管理科学" value="8"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="论文共享权限">
             <el-radio-group v-model="paperInfo.power">
-              <el-radio :label="1">私人观看</el-radio>
-              <el-radio :label="0">公开</el-radio>
+              <el-radio label="1">私人观看</el-radio>
+              <el-radio label="0">公开</el-radio>
               <!-- <el-radio label="限制公开"></el-radio> -->
             </el-radio-group>
           </el-form-item>
@@ -121,6 +121,7 @@ export default defineComponent({
   components: { getMyPaper },
   name: "myPaperPage",
   setup() {
+    const flag =ref(true)
     const store = useStore();
     const dialogVisible = ref(false);
     const change = () => {
@@ -134,8 +135,8 @@ export default defineComponent({
       url: "loading...",
       title: "",
       userid: store.state.userid,
-      power: 1,
-      papertype: 1,
+      power: "1",
+      papertype: "1",
       key1: "",
       key2: "",
       key3: "",
@@ -162,40 +163,44 @@ export default defineComponent({
           ownerid: paperInfo.value["userid"],
           url: paperInfo.value["url"],
           power: paperInfo.value["power"],
-          paperType: paperInfo.value["paperType"],
+          name: store.state.userTruename,
+          paperType: paperInfo.value["papertype"],
           key1: paperInfo.value["key1"],
           key2: paperInfo.value["key2"],
           key3: paperInfo.value["key3"],
           key4: paperInfo.value["key4"],
           key5: paperInfo.value["key5"],
         };
-        try{
-            const result = await axios({
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "post",
-            url: store.state.addpdfInfoApi,
-            data: qs.stringify(data),
-          });
-          if (result["result"] == 1) {
-              change()
-              return ElMessage(result["msg"]);
-            }else{
-              return ElMessage(result["msg"]);
-            }
-        }catch{
-          return ElMessage("哎呀，网络似乎有问题呢");
-        }         
+
+        const result = await axios({
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+          url: store.state.addpdfInfoApi,
+          data: qs.stringify(data),
+        }).then(function (response) {
+          if (response.data["result"] == 1) {
+            change();
+            flag.value=!flag.value
+            dialogVisible.value = false;
+            return ElMessage(response.data["msg"]);
+          } else {
+            return ElMessage(response.data["msg"]);
+          }
+        });
+        console.log(result.data["result"]);
       }
     };
+
     return {
       dialogVisible,
       change,
       paperInfo,
       upresult,
       store,
-      finalupload
+      finalupload,
+      flag
     };
   },
   methods: {
@@ -206,12 +211,14 @@ export default defineComponent({
         type: "warning",
       })
         .then(() => {
+          
           done();
         })
         .catch((_) => {
           console.log(_);
         });
     },
+    
   },
 });
 </script>

@@ -29,9 +29,6 @@
       <el-table-column prop="date" label="上传日期" width="230" sortable>
       </el-table-column>
       <el-table-column align="center" fixed="right">
-        <!-- <template #header>
-          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-        </template> -->
         <template #default="scope">
           <el-tooltip
             class="item"
@@ -64,18 +61,28 @@
 </template>
 <script >
 import { defineComponent, ref } from "vue";
+import qs from "qs";
 import { useStore } from "vuex";
-import { ElMessage } from "element-plus";
 import axios from "axios";
+import { ElMessage } from "element-plus";
 export default defineComponent({
-  name: "getAllPaper",
+  name: "getTypePaper",
   props: ["type"],
-  async setup() {
+  async setup(props) {
     const store = useStore();
     const loading = ref(true);
-    const getApi = store.state.allPaperApi;
     const result = ref();
-    const word = await axios.get(getApi).then((value) => {
+    const postApi = store.state.typePaperApi;
+    const data = { type: props.type };
+    const word = await axios({
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      method: "post",
+      url: postApi,
+      data: qs.stringify(data),
+    }).then((value) => {
+      // console.log(value["data"]);
       if (value["data"]["result"] == "1") {
         result.value = value["data"];
         loading.value = false;
@@ -84,7 +91,6 @@ export default defineComponent({
         return ElMessage(value["msg"]);
       }
     });
-
     const gopaper = (url) => {
       window.open(url, "_blank");
     };
@@ -94,7 +100,7 @@ export default defineComponent({
       const api = store.state.downloadPaperApi;
       window.open(api + "/" + filename, "_blank");
     };
-    return { result, loading, gopaper, word, downloadpdf };
+    return { result, gopaper, word, loading, downloadpdf };
   },
 });
 </script>

@@ -9,27 +9,26 @@ export default createStore({
   state: {
     username: "noname",
     password: "nopassword",
-    userid:111,
-    userpower:1,
-    userTruename:"noname",
+    userid: 111,
+    userpower: 1,
+    userTruename: "noname",
     islogin: false,
     droweropen: false,
     loginApi: "https://dddepg.top/graduate/login",
-    changeApi:"https://dddepg.top/graduate/changeUserInfo",
+    changeApi: "https://dddepg.top/graduate/changeUserInfo",
     researchTreadApi: "https://dddepg.top/graduate/newly",
     newlyResearchApi: "https://dddepg.top/graduate/tread",
     userInfoApi: "https://dddepg.top/graduate/userInfo",
     allTreadApiFirst: "https://dddepg.top/graduate/allnewly",
-    allSearchApi:"https://dddepg.top/graduate/alltread",
-    updataPDFApi:"https://dddepg.top/graduate/updataPDF",
-    addpdfInfoApi:"https://dddepg.top/graduate/addpdfInfo",
+    allSearchApi: "https://dddepg.top/graduate/alltread",
+    updataPDFApi: "https://dddepg.top/graduate/updataPDF",
+    addpdfInfoApi: "https://dddepg.top/graduate/addpdfInfo",
+    allPaperApi: "https://dddepg.top/graduate/getallpaper",
+    typePaperApi: "https://dddepg.top/graduate/getTypePaper",
+    myPaperApi: "https://dddepg.top/graduate/getMyPaper",
+    delePaperApi:"https://dddepg.top/graduate/delMyPaper",
+    downloadPaperApi:"https://dddepg.top/graduate/downloadPDF",
 
-
-    
-    allPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/allpaper/api",
-    myPaperApi: "https://www.fastmock.site/mock/0fdbe709330c1a68f26cbef61c777772/graduateSign/api/Mypaper",
-
-    
 
     testApi: "https://dddepg.top/graduate/userInfo",
   },

@@ -36,7 +36,7 @@
           <el-button
             icon="el-icon-delete"
             circle
-            @click="handleDelete(scope.$index)"
+            @click="handleDelete(scope.$index, scope.row['id'])"
           ></el-button>
         </el-tooltip>
         <el-tooltip
@@ -48,7 +48,7 @@
           <el-button
             icon="iconfont icon-download"
             circle
-            @click="gopaper(scope.row['URL'])"
+            @click="downloadpdf(scope.row['URL'])"
           ></el-button>
         </el-tooltip>
         <el-tooltip
@@ -66,7 +66,6 @@
       </template>
     </el-table-column>
   </el-table>
-
   <el-dialog title="警告" v-model="dialogVisible" width="30%">
     <span>论文一经删除无法恢复，确定删除论文？</span>
     <template #footer>
@@ -80,7 +79,9 @@
 <script lang="ts">
 import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
-import { getLinks } from "@/hooks/getLinks";
+import { getMyPaper } from "@/hooks/getMyPaper";
+import { delepaper } from "@/hooks/dele";
+import { ElMessage } from "element-plus";
 export default defineComponent({
   name: "getMyPaper",
   setup() {
@@ -91,24 +92,42 @@ export default defineComponent({
     const getApi = store.state.myPaperApi;
     const result = ref();
     const words: Promise<{
-      URL: string;
-      title: string;
-      date: string;
-    }> = getLinks(getApi);
+      result: string;
+      data: Array<{ title: string }>;
+    }> = getMyPaper(getApi, store.state.userid);
     words.then((value) => {
-      result.value = value;
+      result.value = value["data"];
       loading.value = false;
     });
     const gopaper = (url: string): void => {
       window.open(url, "_blank");
     };
-    const handleDelete = (ind: number): void => {
+    let deleid = "er";
+    const handleDelete = (ind: number, id: string): void => {
       seletindex = ind;
+      deleid = id;
       dialogVisible.value = true;
     };
     const sureDelet = (): void => {
       dialogVisible.value = false;
-      result.value.splice(seletindex, 1);
+      const res: Promise<{
+        result: string;
+        msg: string;
+      }> = delepaper(store.state.delePaperApi, store.state.userid, deleid);
+      res.then(function (response) {
+        if (response["result"] == "1") {
+          result.value.splice(seletindex, 1);
+          return ElMessage(response["msg"]);
+        } else {
+          return ElMessage(response["msg"]);
+        }
+      });
+    };
+    const downloadpdf = (url: string) => {
+      const name = url.split("/");
+      const filename = name[name.length - 1];
+      const api = store.state.downloadPaperApi;
+      window.open(api + "/" + filename, "_blank");
     };
     return {
       result,
@@ -118,6 +137,7 @@ export default defineComponent({
       handleDelete,
       sureDelet,
       loading,
+      downloadpdf,
     };
   },
 });

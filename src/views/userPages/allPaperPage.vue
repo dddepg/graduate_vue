@@ -4,43 +4,113 @@
       <el-tab-pane label="全部论文" name="allpaper">
         <Suspense>
           <template #default>
-            <get-all-paper />
+            <get-all-paper type="all" />
           </template>
           <template #fallback>
             <el-skeleton :rows="10" animated />
           </template>
         </Suspense>
       </el-tab-pane>
-      <el-tab-pane label="基础科学" name="Basic">基础科学</el-tab-pane>
-      <el-tab-pane label="工程科技" name="Engineering">工程科技</el-tab-pane>
-      <el-tab-pane label="农业科技" name="Agricultural">农业科技</el-tab-pane>
-      <el-tab-pane label="医药卫生科技" name="MedicalAndHealth"
-        >医药卫生科技</el-tab-pane
-      >
-      <el-tab-pane label="哲学与人文科学" name="Philosophy"
-        >哲学与人文科学</el-tab-pane
-      >
-      <el-tab-pane label="社会科学" name="social">社会科学</el-tab-pane>
-      <el-tab-pane label="信息科技" name="Information">信息科技</el-tab-pane>
-      <el-tab-pane label="经济与管理科学" name="Economics"
-        >经济与管理科学</el-tab-pane
-      >
+      <el-tab-pane label="基础科学"  type="1">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="1" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="工程科技" name="gongcheng">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="2" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="农业科技" name="nongye">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="3" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="医药卫生科技" name="yiyao">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="4" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="哲学与人文科学" name="zhexue">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="5" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="社会科学" name="shehui">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="6" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="信息科技" name="xinxi">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="7" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
+      <el-tab-pane label="经济与管理科学" name="jingji">
+        <Suspense>
+          <template #default>
+            <get-type-paper type="8" />
+          </template>
+          <template #fallback>
+            <el-skeleton :rows="10" animated />
+          </template>
+        </Suspense>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
 import GetAllPaper from "@/components/UserPage/AllPaperPage/getAllPaper.vue";
+import GetTypePaper from "@/components/UserPage/AllPaperPage/getTypePaper.vue";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "allPaperPage",
   components: {
     GetAllPaper,
+    GetTypePaper,
   },
   setup() {
     const active = ref("allpaper");
-    return { active };
+    const name = ref();
+
+    return { active, name };
   },
 });
 </script>
@@ -52,6 +122,7 @@ export default defineComponent({
   height 100%
   display flex
   justify-content center
+
 .paper_tabs
   border box-shadow
   height 90%

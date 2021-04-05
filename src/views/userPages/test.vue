@@ -23,10 +23,6 @@
       <el-form-item
         label="年龄"
         prop="age"
-        :rules="[
-          { required: true, message: '年龄不能为空' },
-          { type: 'number', message: '年龄必须为数字值' },
-        ]"
       >
         <el-input
           type="age"
@@ -41,38 +37,40 @@
         <el-button @click="resetForm('numberValidateForm')">重置</el-button>
       </el-form-item>
     </el-form>
+
   </div>
 </template>
 <script >
 // import getTest from "@/components/UserPage/Test/getTest.vue";
 import { defineComponent, ref } from "vue";
 export default defineComponent({
-  components: {},
+  // components: {
+  //   getTest
+  // },
   name: "test",
   setup() {
     const numberValidateForm = {
       age: "",
     };
     const e = ref(numberValidateForm);
-    const a =ref(3)
-    const b=()=>{
-      a.value++
-    }
+
     return {
-      e,a,b
+      e
     };
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          console.log(this.a)
-          this.b()
-          console.log(this.a)
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
+        // if (valid) {
+          const name=this.e['age'].split("/")
+          console.log(name[name.length-1])
+          console.log(valid)
+        //   this.b()
+        //   console.log(this.a)
+        // } else {
+        //   console.log("error submit!!");
+        //   return false;
+        // }
       });
     },
   },
