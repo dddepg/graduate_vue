@@ -11,26 +11,26 @@
         >
         </el-image
       ></el-col>
-      <el-col :span="10"
+      <!-- <el-col :span="10"
         ><el-image
           style="width: 250px; height: 250px"
           :src="url2"
           :preview-src-list="preurl2"
         >
         </el-image
-      ></el-col>
+      ></el-col> -->
     </el-row>
     <h5>点击图片可进行预览，点击下方按钮进行模板选择</h5>
     <el-row type="flex" justify="space-around">
-      <el-col :span="10"
+      <el-col :span="24"
         ><el-button
           type="primary"
-          @click="opendialog('您选择了国家社会科学基金项目申请书模板')"
+          @click="opendialog('您选择了国家社会科学基金项目申请书模板', 1)"
           border
           >选择该模板</el-button
         >
       </el-col>
-      <el-col :span="10"
+      <!-- <el-col :span="10"
         ><el-button
           type="primary"
           @click="
@@ -41,23 +41,17 @@
           border
           >选择该模板</el-button
         >
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row type="flex" justify="space-around"> </el-row>
   </div>
 
-  <el-dialog
-    title="确认选择"
-    v-model="dialogVisible"
-    width="30%"
-  >
+  <el-dialog title="确认选择" v-model="dialogVisible" width="30%">
     <span>{{ title }}</span>
     <template #footer>
       <span class="dialog-footer">
+        <el-button type="primary" @click="go()">确 定</el-button>
         <el-button @click="closdialog()">取 消</el-button>
-        <el-button type="primary" @click="go()"
-          >确 定</el-button
-        >
       </span>
     </template>
   </el-dialog>
@@ -65,25 +59,33 @@
 <script lang="ts">
 import router from "@/router";
 import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
+
 export default defineComponent({
   name: "selectTemplate",
   setup() {
+    const store = useStore();
+    store.state.tableNowAction = 0;
+    store.state.selectTableType = 0;
     const url1 = ref("https://dddepg.top/getimg/word1.png");
     const url2 = ref("https://dddepg.top/getimg/word2.png");
     const preurl1 = ref(["https://dddepg.top/getimg/word1.png"]);
     const preurl2 = ref(["https://dddepg.top/getimg/word2.png"]);
     const dialogVisible = ref(false);
     const title = ref("");
-    const opendialog = (word: string): void => {
+    const opendialog = (word: string, type: number): void => {
       title.value = word;
+      store.state.selectTableType = type;
       dialogVisible.value = true;
     };
     const closdialog = (): void => {
+      store.state.selectTableType = 0;
       dialogVisible.value = false;
     };
-    const go = (): void => {
+    const go = () => {
       dialogVisible.value = false;
-      router.push("/tablePage/basic");
+      store.state.tableNowAction = 1;
+      router.push("/User/newTable/basic");
     };
     return {
       url1,
@@ -94,7 +96,7 @@ export default defineComponent({
       title,
       opendialog,
       closdialog,
-      go
+      go,
     };
   },
 });

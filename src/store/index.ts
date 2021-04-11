@@ -14,6 +14,9 @@ export default createStore({
     userTruename: "noname",
     islogin: false,
     droweropen: false,
+    tableNowAction:0,
+    selectTableType:0,
+
     loginApi: "https://dddepg.top/graduate/login",
     changeApi: "https://dddepg.top/graduate/changeUserInfo",
     researchTreadApi: "https://dddepg.top/graduate/newly",
@@ -28,6 +31,7 @@ export default createStore({
     myPaperApi: "https://dddepg.top/graduate/getMyPaper",
     delePaperApi:"https://dddepg.top/graduate/delMyPaper",
     downloadPaperApi:"https://dddepg.top/graduate/downloadPDF",
+    changeStateApi:"https://dddepg.top/graduate/updatestate",
 
 
     testApi: "https://dddepg.top/graduate/userInfo",

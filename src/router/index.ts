@@ -57,6 +57,14 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'basic',
             component: () => import('@/components/UserPage/TablePage/basicTableInfo.vue')
+          },
+          {
+            path: 'dataTable',
+            component: () => import('@/components/UserPage/TablePage/dateTableInfo.vue')
+          },
+          {
+            path:'finalDate',
+            component: () => import('@/components/UserPage/TablePage/finalTableInfo.vue')
           }
         ]
       }

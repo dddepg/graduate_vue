@@ -1,5 +1,6 @@
 <template>
   <el-table
+    ref="mypapertable"
     :data="result"
     style="width: 100%"
     v-loading="loading"
@@ -7,9 +8,18 @@
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
     class="my_paper_table"
+    :key="thetable"
   >
     <el-table-column label="论文名称" prop="title"> </el-table-column>
     <el-table-column label="上传时间" prop="date" sortable> </el-table-column>
+    <el-table-column
+      label="共享状态"
+      prop="state"
+      width="100%"
+      sortable
+      :formatter="showitem"
+    >
+    </el-table-column>
     <el-table-column align="center">
       <template #header>
         <h3>操作</h3>
@@ -60,7 +70,9 @@
           <el-button
             icon="el-icon-s-tools"
             circle
-            @click="gopaper(scope.row['URL'])"
+            @click="
+              stateManage(scope.row['id'], scope.row['state'], scope.$index)
+            "
           ></el-button>
         </el-tooltip>
       </template>
@@ -75,11 +87,22 @@
       </span>
     </template>
   </el-dialog>
+
+  <el-dialog title="分享状况" v-model="statemanageDialog" width="30%">
+    <el-radio v-model="thestate" :label="0">公开</el-radio>
+    <el-radio v-model="thestate" :label="1">私人观看</el-radio>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="updatethestate()">确 定</el-button>
+        <el-button @click="statemanageDialog = false">取 消</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 <script lang="ts">
 import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
-import { getMyPaper } from "@/hooks/getMyPaper";
+import { getMyPaper, updatestate } from "@/hooks/getMyPaper";
 import { delepaper } from "@/hooks/dele";
 import { ElMessage } from "element-plus";
 export default defineComponent({
@@ -87,10 +110,14 @@ export default defineComponent({
   setup() {
     let seletindex = 0;
     const dialogVisible = ref(false);
+    const statemanageDialog = ref(false);
     const loading = ref(true);
     const store = useStore();
     const getApi = store.state.myPaperApi;
     const result = ref();
+    const thestate = ref();
+    const managepaperid = ref();
+    const thetable = ref(true);
     const words: Promise<{
       result: string;
       data: Array<{ title: string }>;
@@ -129,6 +156,36 @@ export default defineComponent({
       const api = store.state.downloadPaperApi;
       window.open(api + "/" + filename, "_blank");
     };
+    const changeindex = ref();
+    const stateManage = (id: string, state: string, index: string) => {
+      thestate.value = state;
+      managepaperid.value = id;
+      changeindex.value = index;
+      statemanageDialog.value = true;
+    };
+    const updatethestate = () => {
+      const res = updatestate(
+        store.state.changeStateApi,
+        managepaperid.value,
+        thestate.value
+      );
+      res.then(function (response: { result: string; msg: string }) {
+        statemanageDialog.value = false;
+        if (response["result"] == "0") {
+          result.value[changeindex.value]["state"] = thestate.value;
+          return ElMessage(response["msg"]);
+        } else {
+          return ElMessage(response["msg"]);
+        }
+      });
+    };
+    const showitem = (cellValue: { state: number }) => {
+      if (cellValue["state"] == 0) {
+        return "公开";
+      } else {
+        return "私人观看";
+      }
+    };
     return {
       result,
       dialogVisible,
@@ -138,6 +195,13 @@ export default defineComponent({
       sureDelet,
       loading,
       downloadpdf,
+      statemanageDialog,
+      thestate,
+      stateManage,
+      updatethestate,
+      managepaperid,
+      showitem,
+      thetable,
     };
   },
 });

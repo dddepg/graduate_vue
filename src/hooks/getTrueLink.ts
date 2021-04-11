@@ -9,4 +9,6 @@ const getTrueLinks = function (url: string) {
         });
     return word
 }
+
+
 export {getTrueLinks}

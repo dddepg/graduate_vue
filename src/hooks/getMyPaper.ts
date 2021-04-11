@@ -16,4 +16,14 @@ const getMyPaper = function (url: string, theid: string) {
     return word
 }
 
-export { getMyPaper }
+const updatestate = function (url: string, id: string, state: string) {
+    const word = instance.post(url, qs.stringify({ id: id, state: state }))
+        .then(function (response) {
+            return response.data
+        })
+        .catch(function () {
+            return [{ 'result': "1", 'msg': "哎呀，网络出问题了" }];
+        });
+    return word
+}
+export { getMyPaper, updatestate }
