@@ -8,7 +8,7 @@
     </el-tabs> -->
     <!-- <Suspense>
       <template #default>
-    <get-test />
+        <get-my-table/>
     </template>
       <template #fallback>
         <div>正在拼了命的加载…</div>
@@ -37,15 +37,15 @@
         <el-button @click="resetForm('numberValidateForm')">重置</el-button>
       </el-form-item>
     </el-form>
-
+    {{ word2 }}
   </div>
 </template>
 <script >
-// import getTest from "@/components/UserPage/Test/getTest.vue";
+// import getMyTable from "@/components/UserPage/TablePage/getMyTable"
 import { defineComponent, ref } from "vue";
 export default defineComponent({
   // components: {
-  //   getTest
+  //   getMyTable
   // },
   name: "test",
   setup() {
@@ -53,9 +53,11 @@ export default defineComponent({
       age: "",
     };
     const e = ref(numberValidateForm);
+    const word="https://www.dddepg.top/graduate_back/static/word/wenjianceshi"
+    const word2=RegExp(word, 'i').split("/")
 
     return {
-      e
+      e,word2,
     };
   },
   methods: {

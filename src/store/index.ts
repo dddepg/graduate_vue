@@ -16,6 +16,8 @@ export default createStore({
     droweropen: false,
     tableNowAction:0,
     selectTableType:0,
+    nowCreatTableid:"0",
+    nowCreatTablename:"no",
 
     loginApi: "https://dddepg.top/graduate/login",
     changeApi: "https://dddepg.top/graduate/changeUserInfo",
@@ -31,9 +33,16 @@ export default createStore({
     myPaperApi: "https://dddepg.top/graduate/getMyPaper",
     delePaperApi:"https://dddepg.top/graduate/delMyPaper",
     downloadPaperApi:"https://dddepg.top/graduate/downloadPDF",
+    downloadWordApi:"https://dddepg.top/graduate/downloadword",
     changeStateApi:"https://dddepg.top/graduate/updatestate",
 
-
+    postBasicTableInfoApi:"https://dddepg.top/graduate/creatTable",
+    postFirstTableDataApi:"https://dddepg.top/graduate/TablefirstDate",
+    postSecondTableDataApi:"https://dddepg.top/graduate/TableSecondDate",
+    postLastTableDataApi:"https://dddepg.top/graduate/TableLastDate",
+    postDropRowApi:"https://dddepg.top/graduate/DropRow",
+    getTableApi:"https://dddepg.top/graduate/getMyTable",
+    
     testApi: "https://dddepg.top/graduate/userInfo",
   },
   mutations: {

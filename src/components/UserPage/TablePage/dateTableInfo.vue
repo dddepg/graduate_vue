@@ -95,8 +95,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="go">下一步</el-button>
-          <el-button>放弃填写</el-button>
+          <el-button type="primary" @click="thego()">下一步</el-button>
+          <el-button @click="goback">放弃填写</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -107,7 +107,7 @@ import { defineComponent, onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
 import router from "@/router";
 import { ElMessage } from "element-plus";
-
+import { postTableSecondDate, postDropRow } from "@/hooks/tableMethos";
 export default defineComponent({
   name: "dateTableInfo",
   setup() {
@@ -149,11 +149,64 @@ export default defineComponent({
       jihuawanchengshijian: "",
     };
     const f = ref(form);
-    const go = () => {
-      store.state.tableNowAction = 3;
-      router.push("/User/newTable/finalDate");
+    const thego = () => {
+      const res = postTableSecondDate(
+        store.state.postSecondTableDataApi,
+        store.state.nowCreatTableid,
+        f.value["ketiming2"],
+        f.value["guanjianci"],
+        f.value["xiangmuleibie"],
+        f.value["xuekefenlei"],
+        f.value["yanjiuleixing"],
+        f.value["ketifuzeren"],
+        f.value["xingbie"],
+        f.value["mingzu"],
+        f.value["chushengri"],
+        f.value["xingzhengzhiwu"],
+        f.value["zhuanyezhicheng"],
+        f.value["yanjiuzhuanchang"],
+        f.value["zuihouxueli"],
+        f.value["zuihouxuewei"],
+        f.value["danrendaoshi"],
+        f.value["suozaisheng1"],
+        f.value["suozaisheng2"],
+        f.value["suoshuxitong1"],
+        f.value["suoshuxitong2"],
+        f.value["gongzuodanwei"],
+        f.value["lianxidianhua"],
+        f.value["shengfenzheng1"],
+        f.value["sfzhm"],
+        f.value["sfgat"],
+        f.value["yuqicg"],
+        f.value["yuqizs"],
+        f.value["sqjfei"],
+        f.value["jihuawanchengshijian"]
+      );
+      res.then(function (response) {
+        console.log(response);
+        if (response["result"] == 0) {
+          store.state.tableNowAction = 3;
+          router.push("/User/newTable/finalDate");
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
     };
-    return { f,go };
+    const goback = () => {
+      const res = postDropRow(
+        store.state.postDropRowApi,
+        store.state.nowCreatTableid
+      );
+      res.then(function (response) {
+        if (response["result"] == 0) {
+          store.state.selectTableType = 0;
+          router.push("/User/tablePage");
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
+    };
+    return { f, thego,goback };
   },
 });
 </script>

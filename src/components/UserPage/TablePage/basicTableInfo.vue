@@ -30,7 +30,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="gonext('form')">下一步</el-button>
-          <el-button>放弃填写</el-button>
+          <el-button  @click="goback"  >放弃填写</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -63,41 +63,52 @@ export default defineComponent({
     });
 
     const nextstep = () => {
-      // const res = postTableInfo(
-      //   store.state.password,
-      //   f.value["ketiname"],
-      //   store.state.userid
-      // );
-      // res.then(function (response) {
-      //   const result = postTableFirstDate(
-      //     store.state.testApi,
-      //     response.data['id'],
-      //     f.value["xueke"],
-      //     f.value["xiangmu"],
-      //     f.value["ketiname"],
-      //     f.value["shenqingname"],
-      //     f.value["tianbaodate"]
-      //   );
-      //   result.then(function (){
-          store.state.tableNowAction=2
-          router.push("/User/newTable/dataTable");
-          
-      //   })
-      // });
+      const res = postTableInfo(
+        store.state.postBasicTableInfoApi,
+        f.value["ketiname"],
+        store.state.userid
+      );
+      res.then(function (response) {
+        if (response["result"] == 0) {
+          store.state.nowCreatTableid = response["id"];
+           store.state.nowCreatTablename=response["filename"]
+          const result = postTableFirstDate(
+            store.state.postFirstTableDataApi,
+            response["id"],
+            f.value["xueke"],
+            f.value["xiangmu"],
+            f.value["ketiname"],
+            f.value["shenqingname"],
+            f.value["tianbaodate"]
+          );
+          result.then(function (response) {
+            if (response["result"] == 0) {
+              store.state.tableNowAction = 2;
+              router.push("/User/newTable/dataTable");
+            } else {
+              return ElMessage("哎呀，网络出问题了");
+            }
+          });
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
     };
-
+    const goback=()=>{
+      store.state.selectTableType=0
+      router.push("/User/tablePage");
+    }
     onBeforeMount(() => {
       if (store.state.selectTableType != 1) {
         router.push("/User/newTable/table");
         return ElMessage("请先选择模板");
       }
     });
-    return { f, nextstep, rules };
+    return { f, nextstep, rules,goback };
   },
   methods: {
     gonext(myform) {
       this.$refs[myform].validate((valid) => {
-        console.log(valid);
         if (valid) {
           this.nextstep();
         } else {

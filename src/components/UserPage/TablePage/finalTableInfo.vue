@@ -27,8 +27,8 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="gonext('form')">下一步</el-button>
-          <el-button>放弃填写</el-button>
+          <el-button type="primary" @click="go()">生成并下载</el-button>
+          <el-button @click="goback">放弃填写</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -39,6 +39,7 @@ import { defineComponent, onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
 import router from "@/router";
 import { ElMessage } from "element-plus";
+import { postTableLastDate,postDropRow } from "@/hooks/tableMethos";
 export default defineComponent({
   name: "finalTableInfo",
   setup() {
@@ -54,7 +55,39 @@ export default defineComponent({
       yanjiujichu: "",
     };
     const f = ref(form);
-    return { f };
+    const go = () => {
+      const res = postTableLastDate(
+        store.state.postLastTableDataApi,
+        store.state.nowCreatTableid,
+        store.state.nowCreatTablename,
+        f.value['ketishejilunzheng'],
+        f.value['yanjiujichu']
+      );
+      res.then(function (response) {
+        if (response["result"] == 0) {
+          store.state.tableNowAction = 0;
+          router.push("/User/tablePage");
+          return ElMessage("创建成功");
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
+    };
+    const goback = () => {
+      const res = postDropRow(
+        store.state.postDropRowApi,
+        store.state.nowCreatTableid
+      );
+      res.then(function (response) {
+        if (response["result"] == 0) {
+          store.state.selectTableType = 0;
+          router.push("/User/tablePage");
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
+    };
+    return { f,go,goback};
   },
 });
 </script>

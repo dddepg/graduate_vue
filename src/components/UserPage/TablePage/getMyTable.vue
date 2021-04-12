@@ -24,7 +24,7 @@
           <el-button
             icon="el-icon-delete"
             circle
-            @click="handleDelete(scope.$index)"
+            @click="handleDelete(scope.$index, scope.row['id'])"
           ></el-button>
         </el-tooltip>
         <el-tooltip
@@ -36,7 +36,7 @@
           <el-button
             icon="iconfont icon-download"
             circle
-            @click="gopaper(scope.row['URL'])"
+            @click="downloadword(scope.row['url'])"
           ></el-button>
         </el-tooltip>
       </template>
@@ -56,41 +56,59 @@
 <script lang="ts">
 import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
-import { getLinks } from "@/hooks/getLinks";
+import { getMyTable } from "@/hooks/tableMethos";
+import { ElMessage } from "element-plus";
+import { postDropRow } from "@/hooks/tableMethos";
 export default defineComponent({
-  name: "getMyPaper",
+  name: "getMyTable",
   setup() {
     let seletindex = 0;
     const dialogVisible = ref(false);
     const loading = ref(true);
     const store = useStore();
-    const getApi = store.state.myPaperApi;
+    const getApi = store.state.getTableApi;
     const result = ref();
     const words: Promise<{
-      URL: string;
-      title: string;
-      date: string;
-    }> = getLinks(getApi);
+      result: string;
+      data: Array<{ title: string }>;
+    }> = getMyTable(getApi, store.state.userid);
     words.then((value) => {
-      result.value = value;
+      result.value = value["data"];
       loading.value = false;
     });
-    const gopaper = (url: string): void => {
-      window.open(url, "_blank");
+
+    const downloadword = (url: string) => {
+      const name = url.split("/");
+      const filename = name[name.length - 1];
+      const api = store.state.downloadWordApi;
+      window.open(api + "/" + filename, "_blank");
     };
-    const handleDelete = (ind: number): void => {
+    let deleid = "0";
+    const handleDelete = (ind: number, truedeleid: string): void => {
       seletindex = ind;
+      deleid=truedeleid
       dialogVisible.value = true;
     };
     const sureDelet = (): void => {
-      dialogVisible.value = false;
-      result.value.splice(seletindex, 1);
+      const res = postDropRow(
+        store.state.postDropRowApi,
+        deleid
+      );
+      res.then(function (response: { result: number }) {
+        if (response["result"] == 0) {
+          dialogVisible.value = false;
+          result.value.splice(seletindex, 1);
+          return ElMessage("删除成功");
+        } else {
+          return ElMessage("哎呀，网络出问题了");
+        }
+      });
     };
     return {
       result,
       dialogVisible,
       seletindex,
-      gopaper,
+      downloadword,
       handleDelete,
       sureDelet,
       loading,
