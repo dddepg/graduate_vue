@@ -1,7 +1,13 @@
 <template>
   <div class="tableback">
     <div class="tableform">
-      <el-form ref="form" :model="f" label-width="300px" label-position="right">
+      <el-form
+        ref="form"
+        :model="f"
+        label-width="300px"
+        label-position="right"
+        :rules="rules"
+      >
         <el-form-item label="课题名称">
           <el-input v-model="f.ketiming2"></el-input>
         </el-form-item>
@@ -86,7 +92,7 @@
         <el-form-item label="申请经费（单位：万元）">
           <el-input v-model="f.sqjfei"></el-input>
         </el-form-item>
-        <el-form-item label="计划完成时间">
+        <el-form-item label="计划完成时间" prop="jihuawanchengshijian">
           <el-date-picker
             v-model="f.jihuawanchengshijian"
             type="date"
@@ -95,7 +101,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="thego()">下一步</el-button>
+          <el-button type="primary" @click="gonext('form')">下一步</el-button>
           <el-button @click="goback">放弃填写</el-button>
         </el-form-item>
       </el-form>
@@ -117,6 +123,9 @@ export default defineComponent({
         router.push("/User/newTable/table");
         return ElMessage("请先选择模板");
       }
+    });
+    const rules = ref({
+      jihuawanchengshijian: [{ required: true, message: "不能为空" }],
     });
     const form = {
       ketiming2: "",
@@ -206,7 +215,18 @@ export default defineComponent({
         }
       });
     };
-    return { f, thego,goback };
+    return { f, thego, goback, rules };
+  },
+  methods: {
+    gonext(myform) {
+      this.$refs[myform].validate((valid) => {
+        if (valid) {
+          this.thego();
+        } else {
+          return ElMessage("请正确填写字段");
+        }
+      });
+    },
   },
 });
 </script>

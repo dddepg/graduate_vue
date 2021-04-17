@@ -38,10 +38,11 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('form')"
-              >修改</el-button
+              >修改信息</el-button
             >
           </el-form-item>
         </el-form>
+        <forget-dio :title="tit" :which="2" />
       </el-card>
     </el-col>
   </el-row>
@@ -53,7 +54,9 @@ import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 import qs from "qs";
+import forgetDio from "@/components/forgetDio.vue";
 export default defineComponent({
+  components: { forgetDio },
   name: "getUserInfo",
   async setup() {
     const store = useStore();
@@ -142,6 +145,7 @@ export default defineComponent({
         return ElMessage("哎呀，网络似乎有问题呢");
       }
     };
+    const tit = ref("修改密码");
     return {
       id,
       name,
@@ -151,6 +155,7 @@ export default defineComponent({
       change,
       rules,
       showForm,
+      tit,
     };
   },
   methods: {

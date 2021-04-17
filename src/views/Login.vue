@@ -49,8 +49,8 @@
               </el-col>
             </el-row>
             <el-row type="flex" justify="center" class="forgetpassword">
-              <el-col :span="4" :offset="16">
-                <el-link type="primary" disabled>忘记密码</el-link>
+              <el-col :span="4" :offset="10">
+                <forget-dio :title="tit" :which="1"/>
               </el-col>
             </el-row>
             <el-row type="flex" justify="space-around" class="loginbutton">
@@ -74,9 +74,11 @@ import router from "@/router";
 import { useStore } from "vuex";
 import { ElLoading } from "element-plus";
 import { useCookies } from "@vueuse/integrations";
+import forgetDio from "@/components/forgetDio.vue";
 import qs from "qs";
 export default defineComponent({
   name: "Login",
+  components: { forgetDio },
   setup() {
     const store = useStore();
     const cookie = useCookies();
@@ -137,11 +139,12 @@ export default defineComponent({
 
       return null;
     };
-
+    const tit=ref("忘记密码")
     return {
       usernum,
       password,
       postLogin,
+      tit
     };
   },
   methods: mapMutations(["setUserName", "setPassWord", "setLogin"]),
@@ -168,7 +171,7 @@ max_size = 100%
 #loginarea
   background-color #EEEEEE
   opacity 0.9
-  height 250px
+  height 300px
 
 .title
   font-size 30px

@@ -43,6 +43,9 @@ export default createStore({
     postDropRowApi:"https://dddepg.top/graduate/DropRow",
     getTableApi:"https://dddepg.top/graduate/getMyTable",
     
+    TestTrueApi:"https://dddepg.top/graduate/managePass",
+    ChangePassApi:"https://dddepg.top/graduate/changePass",
+
     testApi: "https://dddepg.top/graduate/userInfo",
   },
   mutations: {
