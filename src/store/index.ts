@@ -57,6 +57,7 @@ export default createStore({
     getAllUserPaperApi: "https://dddepg.top/graduate/getAllUserPaper",
     getSuperAllUserPaperApi: "https://dddepg.top/graduate/SupergetAllUser",
     changeUserPowerApi: "https://dddepg.top/graduate/changeUserPowerApi",
+    addNewsApi: "https://dddepg.top/graduate/addNewsApi",
 
     testApi: "https://dddepg.top/graduate/userInfo",
   },

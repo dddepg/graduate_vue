@@ -6,7 +6,7 @@
           <el-divider></el-divider>
           <Suspense>
             <template #default>
-              <get-all-user :key="store.state.adduser"/>
+              <get-all-user :key="store.state.adduser" />
             </template>
             <template #fallback>
               <el-skeleton :rows="10" animated />
@@ -19,6 +19,8 @@
           <creat-user title="新增一个用户" :which="1" ref="creatuser1" />
           <div class="buttonbetween" />
           <creat-user title="新增多个用户" :which="2" ref="creatuser1" />
+          <div class="buttonbetween" />
+          <add-newly/>
         </div>
       </el-col>
     </el-row>
@@ -31,17 +33,18 @@ import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
 import GetAllUser from "@/components/ManagePage/getAllUser.vue";
 import CreatUser from "@/components/ManagePage/creatUser.vue";
+import AddNewly from "@/components/ManagePage/addNewly.vue";
 
 export default defineComponent({
   name: "administratorsUserManage",
-  components: { GetAllUser, CreatUser },
+  components: { GetAllUser, CreatUser, AddNewly },
   setup() {
     const store = useStore();
     if (parseInt(store.state.userpower) == 1) {
       router.push("/");
       return ElMessage("您没有权限访问该页面");
     }
-    return {store}
+    return { store };
   },
 });
 </script>
