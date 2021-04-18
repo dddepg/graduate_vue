@@ -26,4 +26,6 @@ const updatestate = function (url: string, id: string, state: string) {
         });
     return word
 }
+
+
 export { getMyPaper, updatestate }

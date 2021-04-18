@@ -67,7 +67,20 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('@/components/UserPage/TablePage/finalTableInfo.vue')
           }
         ]
+      },
+      {
+        path:"Manage",
+        component:()=>import("@/views/ManagePages/administratorsUserManage.vue")
+      },
+      {
+        path:"ManageAllPaper",
+        component:()=>import("@/views/ManagePages/ManageAllPaper.vue")
+      },
+      {
+        path:"SuperManage",
+        component:()=>import("@/views/SuperManagePages/SuperManage.vue")
       }
+
 
     ]
 

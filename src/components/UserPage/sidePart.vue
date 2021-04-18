@@ -24,7 +24,7 @@
         <el-menu-item index="/User/paper">全部论文</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
-    <el-submenu index="3">
+    <el-submenu index="3" v-if="power!=3">
       <template #title>
         <i class="el-icon-menu"></i>
         <span>我的主页</span>
@@ -33,6 +33,26 @@
         <el-menu-item index="/User/myPaper">论文管理</el-menu-item>
         <el-menu-item index="/User/tablePage">申请表管理</el-menu-item>
         <el-menu-item index="/User/usermanage">用户管理</el-menu-item>
+      </el-menu-item-group>
+    </el-submenu>
+    <el-submenu index="4" v-if="power>1" >
+      <template #title>
+        <i class="iconfont icon-yonghu"></i>
+        <span>  管理员界面</span>
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="/User/Manage">全部用户管理</el-menu-item>
+        <el-menu-item index="/User/ManageAllPaper">全部论文管理</el-menu-item>
+        <!-- <el-menu-item index="/User/usermanage">用户管理</el-menu-item> -->
+      </el-menu-item-group>
+    </el-submenu>
+    <el-submenu index="5" v-if="power==3" >
+      <template #title>
+        <i class="iconfont icon-yonghu"></i>
+        <span>  超级管理员界面</span>
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="/User/SuperManage">用户权限管理</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <!-- <el-menu-item index="/User/test" >
@@ -46,8 +66,14 @@
 
 <script>
 import { defineComponent } from "vue";
+import {useStore} from "vuex"
 export default defineComponent({
   name: "sidePart",
+  setup(){
+    const store = useStore()
+    const power =parseInt(store.state.userpower)
+    return {power}
+  }
 });
 </script>
 
