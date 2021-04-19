@@ -2,7 +2,7 @@
   <div>
     <el-button type="primary" @click="open()">添加科研新闻</el-button>
   </div>
-  <el-dialog title="添加科研新闻" v-model="addN" width="30%">
+  <el-dialog title="添加科研新闻" v-model="addN" :width="dialogwidth">
     <el-form label-width="135px" :model="f">
       <el-form-item label="请输入新闻标题">
         <el-input v-model="f.title"></el-input>
@@ -28,18 +28,27 @@ import { defineComponent, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
 import { addNews } from "@/hooks/creatUser";
+import { useWindowSize } from "@vueuse/core";
 export default defineComponent({
   name: "addNewly",
   setup() {
     const store = useStore();
     const addN = ref(false);
+    const { width, height } = useWindowSize();
     const form = {
       title: "",
       url: "",
       radio: "",
     };
+    const dialogwidth = ref("30%");
     const f = ref(form);
     const open = () => {
+      console.log(height);
+      if (width.value > 800) {
+        dialogwidth.value = "30%";
+      } else {
+        dialogwidth.value = "100%";
+      }
       addN.value = true;
     };
     const close = () => {
@@ -57,13 +66,14 @@ export default defineComponent({
       res.then(function (response) {
         if (response["result"] == 1) {
           addN.value = false;
+          store.state.allnewsflag = !store.state.allnewsflag;
           return ElMessage("添加成功");
         } else {
           return ElMessage(response["msg"]);
         }
       });
     };
-    return { addN, f, open, close,creat };
+    return { addN, f, open, close, creat, dialogwidth };
   },
 });
 </script>

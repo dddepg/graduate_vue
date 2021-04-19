@@ -2,7 +2,7 @@
   <div>
     <el-button type="primary" @click="open(which)">{{ title }}</el-button>
   </div>
-  <el-dialog :title="title" v-model="creatAUser" width="30%">
+  <el-dialog :title="title" v-model="creatAUser" :width="dialogwidth">
     <el-form
       ref="creatuserform"
       label-width="135px"
@@ -21,7 +21,7 @@
       </span>
     </template>
   </el-dialog>
-  <el-dialog :title="title" v-model="creatNumUser" width="30%">
+  <el-dialog :title="title" v-model="creatNumUser" :width="dialogwidth">
     <el-form
       ref="creatuserform2"
       label-width="135px"
@@ -49,6 +49,7 @@ import { defineComponent, ref } from "vue";
 import { creatOneUser, creatMoreUser } from "@/hooks/creatUser";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
+import { useWindowSize } from "@vueuse/core";
 export default defineComponent({
   name: "creatUser",
   props: ["title", "which"],
@@ -56,6 +57,8 @@ export default defineComponent({
   setup(props) {
     const creatAUser = ref(false);
     const creatNumUser = ref(false);
+    const { width, height } = useWindowSize();
+    const dialogwidth = ref("30%");
     const form1 = {
       onename: "",
     };
@@ -102,6 +105,12 @@ export default defineComponent({
       f2.value["numlastname"] = 0;
     };
     const open = (which) => {
+      console.log(height);
+      if (width.value > 800) {
+        dialogwidth.value = "30%";
+      } else {
+        dialogwidth.value = "100%";
+      }
       if (which == 1) {
         creatAUser.value = true;
       } else {
@@ -116,6 +125,7 @@ export default defineComponent({
       creat,
       close,
       open,
+      dialogwidth
     };
   },
 });

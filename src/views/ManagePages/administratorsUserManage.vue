@@ -20,7 +20,7 @@
           <div class="buttonbetween" />
           <creat-user title="新增多个用户" :which="2" ref="creatuser1" />
           <div class="buttonbetween" />
-          <add-newly/>
+          <!-- <add-newly/> -->
         </div>
       </el-col>
     </el-row>
@@ -33,11 +33,11 @@ import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
 import GetAllUser from "@/components/ManagePage/getAllUser.vue";
 import CreatUser from "@/components/ManagePage/creatUser.vue";
-import AddNewly from "@/components/ManagePage/addNewly.vue";
+// import AddNewly from "@/components/ManagePage/addNewly.vue";
 
 export default defineComponent({
   name: "administratorsUserManage",
-  components: { GetAllUser, CreatUser, AddNewly },
+  components: { GetAllUser, CreatUser },
   setup() {
     const store = useStore();
     if (parseInt(store.state.userpower) == 1) {

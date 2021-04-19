@@ -41,8 +41,9 @@
         <span>  管理员界面</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="/User/Manage">用户与新闻管理</el-menu-item>
+        <el-menu-item index="/User/Manage">全部用户管理</el-menu-item>
         <el-menu-item index="/User/ManageAllPaper">全部论文管理</el-menu-item>
+        <el-menu-item index="/User/ManageALLNews">新闻管理</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="5" v-if="power==3" >

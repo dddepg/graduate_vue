@@ -79,6 +79,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:"SuperManage",
         component:()=>import("@/views/SuperManagePages/SuperManage.vue")
+      },
+      {
+        path:"ManageALLNews",
+        component:()=>import("@/views/ManagePages/manageNews.vue")
       }
 
 

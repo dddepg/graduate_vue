@@ -20,6 +20,7 @@ export default createStore({
     nowCreatTablename: "no",
 
     adduser: true,
+    allnewsflag:true,
 
     loginApi: "https://dddepg.top/graduate/login",
     changeApi: "https://dddepg.top/graduate/changeUserInfo",
@@ -58,6 +59,7 @@ export default createStore({
     getSuperAllUserPaperApi: "https://dddepg.top/graduate/SupergetAllUser",
     changeUserPowerApi: "https://dddepg.top/graduate/changeUserPowerApi",
     addNewsApi: "https://dddepg.top/graduate/addNewsApi",
+    deleNewsApi:"https://dddepg.top/graduate/deleNewsApi",
 
     testApi: "https://dddepg.top/graduate/userInfo",
   },
