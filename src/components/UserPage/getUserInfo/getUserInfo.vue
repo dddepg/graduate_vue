@@ -55,11 +55,16 @@ import { ElMessage } from "element-plus";
 import axios from "axios";
 import qs from "qs";
 import forgetDio from "@/components/forgetDio.vue";
+import router from "@/router";
 export default defineComponent({
   components: { forgetDio },
   name: "getUserInfo",
   async setup() {
     const store = useStore();
+    if (parseInt(store.state.userpower) == 3) {
+      router.push("/");
+      return ElMessage("超级管理员不可自行设置信息");
+    }
     const id = ref(store.state.userid);
     const name = ref(store.state.userTruename);
     const email = ref("");

@@ -23,12 +23,17 @@ import { ElMessage } from "element-plus";
 import axios from "axios";
 import qs from "qs";
 import ManageAllUserPaper from "@/components/ManagePage/ManageAllUserPaper.vue";
+import router from "@/router";
 export default defineComponent({
   components: { ManageAllUserPaper },
   name: "manageAllPaperPage",
   setup() {
     const flag = ref(true);
     const store = useStore();
+    if (parseInt(store.state.userpower) == 1) {
+      router.push("/");
+      return ElMessage("您没有权限访问该页面");
+    }
     const dialogVisible = ref(false);
     const change = () => {
       if (dialogVisible.value == false) {

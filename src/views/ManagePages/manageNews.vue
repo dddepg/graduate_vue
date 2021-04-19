@@ -43,12 +43,17 @@ import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
 import AddNewly from "@/components/ManagePage/addNewly.vue";
 import GetAllNewsMan from "@/components/ManagePage/getAllNewsMan.vue";
-
+import { ElMessage } from "element-plus";
+import router from "@/router";
 export default defineComponent({
   components: { AddNewly, GetAllNewsMan },
   name: "myPaperPage",
   setup() {
     const store = useStore();
+    if (parseInt(store.state.userpower) == 1) {
+      router.push("/");
+      return ElMessage("您没有权限访问该页面");
+    }
     const active=ref('active')
     return {
       store,

@@ -33,7 +33,6 @@ import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
 import GetAllUser from "@/components/ManagePage/getAllUser.vue";
 import CreatUser from "@/components/ManagePage/creatUser.vue";
-// import AddNewly from "@/components/ManagePage/addNewly.vue";
 
 export default defineComponent({
   name: "administratorsUserManage",
