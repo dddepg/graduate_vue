@@ -11,39 +11,50 @@
       :key="key"
       :href="value['URL']"
       target="_blank"
-      class="newly_link"
-      ><span class="newly_link_word">{{ value["title"] }}</span>
-    </el-link>
+      class="tread_link"
+      >{{ value["title"] }}</el-link
+    >
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-// import { getLinks } from "@/hooks/getLinks";
-import {getTrueLinks}from "@/hooks/getTrueLink"
+import { getFirstPageNews } from "@/hooks/getNews";
 export default defineComponent({
-  name: "getAllPaper",
-  async setup() {
-    const store = useStore();
+  props: ["type"],
+  name: "getFirstPageNews",
+  async setup(props) {
     const loading = ref(true);
-    const getApi = store.state.newlyResearchApi;
     const result = ref();
-    const words: Promise<{ URL: string; title: string }> = getTrueLinks(getApi);
-    words.then((value) => {
-      result.value = value;
-      loading.value = false;
-    });
+    {
+      const store = useStore();
+      if (props.type == "科研动态") {
+        const getTreadApi = store.state.researchTreadApi;
+        const words: Promise<{
+          URL: string;
+          title: string;
+        }> = await getFirstPageNews(getTreadApi);
+        result.value = words;
+      } else if (props.type == "最新研究") {
+        const getNewsApi = store.state.newlyResearchApi;
+        const words: Promise<{
+          URL: string;
+          title: string;
+        }> = await getFirstPageNews(getNewsApi);
+        result.value = words;
+      }
+    }
+    loading.value = false;
     return { result, loading };
   },
 });
 </script>
-
 <style lang="stylus" scoped>
-.newly_link
+.tread_link
   width 100%
   height 22%
-  margin 2px 0
+  margin 0.5% 0
   text-align left
   overflow hidden
   text-overflow ellipsis
@@ -51,16 +62,17 @@ export default defineComponent({
   display flex
   justify-content flex-start
 
-.newly_link:nth-child(2n)
+.tread_link:nth-child(2n)
   background-color rgb(224, 224, 224)
 
-.newly_link:nth-child(2n + 1)
+.tread_link:nth-child(2n + 1)
   background-color rgb(240, 240, 240)
 
-.newly_link_word
+.tread_link_word
   width 100%
   overflow hidden
   text-overflow ellipsis
+
 .loadback
   height 100%
 </style>

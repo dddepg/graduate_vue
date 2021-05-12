@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { getTrueLinks } from "@/hooks/getTrueLink";
+import { getFirstPageNews } from "@/hooks/getNews";
 export default defineComponent({
   name: "getAllSearch",
   async setup() {
@@ -28,7 +28,7 @@ export default defineComponent({
     const loading = ref(true);
     const getApi = store.state.allSearchApi;
     const result = ref();
-    const words: Promise<{ URL: string; title: string }> = getTrueLinks(getApi);
+    const words: Promise<{ URL: string; title: string }> = getFirstPageNews(getApi);
     words.then((value) => {
       result.value = value;
       loading.value = false;

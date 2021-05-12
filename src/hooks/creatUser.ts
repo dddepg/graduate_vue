@@ -1,12 +1,9 @@
-import axios from 'axios'
+// 创建用户与新闻的方法
+import {myaxios} from "@/hooks/myAxios"
 import qs from "qs"
-const instance = axios.create({
-    timeout: 1000,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-});
-
+// 新增一个用户
 const creatOneUser = function (url: string, name: string) {
-    const word = instance.post(url, qs.stringify({ num: 1, name: name }))
+    const word = myaxios.post(url, qs.stringify({ num: 1, name: name }))
         .then(function (response) {
             return response.data
         })
@@ -15,8 +12,9 @@ const creatOneUser = function (url: string, name: string) {
         });
     return word
 }
+// 新增多个用户，注意参数为数字
 const creatMoreUser = function (url: string, beginname: number, endname: number) {
-    const word = instance.post(url, qs.stringify({ num: 2, beginname: beginname, endname: endname }))
+    const word = myaxios.post(url, qs.stringify({ num: 2, beginname: beginname, endname: endname }))
         .then(function (response) {
             return response.data
         })
@@ -25,9 +23,9 @@ const creatMoreUser = function (url: string, beginname: number, endname: number)
         });
     return word
 }
-
+// 新增新闻
 const addNews = function (url: string, title: string, newsurl: string, state: string) {
-    const word = instance.post(url, qs.stringify({ newsurl: newsurl, title: title, state: state }))
+    const word = myaxios.post(url, qs.stringify({ newsurl: newsurl, title: title, state: state }))
         .then(function (response) {
             return response.data
         })

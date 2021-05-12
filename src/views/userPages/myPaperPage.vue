@@ -119,11 +119,16 @@ import axios from "axios";
 import qs from "qs";
 export default defineComponent({
   components: { getMyPaper },
+  // 我的论文页面
   name: "myPaperPage",
   setup() {
+    // 设置flag刷新论文组件
     const flag =ref(true)
+    // 获取store数据
     const store = useStore();
+    // 设置弹窗展示flag
     const dialogVisible = ref(false);
+    // 修改弹窗状态方法
     const change = () => {
       if (dialogVisible.value == false) {
         dialogVisible.value = true;
@@ -131,6 +136,7 @@ export default defineComponent({
         dialogVisible.value = false;
       }
     };
+    // 论文信息对象
     const paper = {
       url: "loading...",
       title: "",
@@ -143,7 +149,9 @@ export default defineComponent({
       key4: "",
       key5: "",
     };
+    // 设置响应式
     const paperInfo = ref(paper);
+    // 上传论文PDF方法，回传0表示成功，1表示失败，并展示提示
     const upresult = (response, file, fileList) => {
       if (response["result"] == 0) {
         paperInfo.value["url"] = response["url"];
@@ -154,10 +162,13 @@ export default defineComponent({
         return ElMessage(response["msg"]);
       }
     };
+    // 论文信息上传第二部分
     const finalupload = async () => {
       if (paperInfo.value["url"] == "loading...") {
+        // 首先判断论文是否上传
         return ElMessage("请先上传文件");
       } else {
+        // 论文已上传，设置论文属性对象
         const data = {
           title: paperInfo.value["title"],
           ownerid: paperInfo.value["userid"],
@@ -171,7 +182,7 @@ export default defineComponent({
           key4: paperInfo.value["key4"],
           key5: paperInfo.value["key5"],
         };
-
+        // 论文上传方法
         const result = await axios({
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -181,6 +192,7 @@ export default defineComponent({
           data: qs.stringify(data),
         }).then(function (response) {
           if (response.data["result"] == 1) {
+            //关闭对话框，修改flag，确保无法回头
             change();
             flag.value=!flag.value
             dialogVisible.value = false;
@@ -204,14 +216,14 @@ export default defineComponent({
     };
   },
   methods: {
+    // 放弃上传弹窗
     handleClose(done) {
       this.$confirm("确定放弃上传并且关闭对话框?", "放弃上传", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          
+        .then(() => {          
           done();
         })
         .catch((_) => {

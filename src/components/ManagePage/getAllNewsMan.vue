@@ -54,7 +54,7 @@
 <script lang="ts">
 import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
-import { getTrueLinks } from "@/hooks/getTrueLink";
+import { getFirstPageNews } from "@/hooks/getNews";
 import { deleNews } from "@/hooks/dele";
 import { ElMessage } from "element-plus";
 export default defineComponent({
@@ -67,46 +67,51 @@ export default defineComponent({
     const store = useStore();
     const getApi = store.state.allSearchApi;
     const getApi2 = store.state.allTreadApiFirst;
-    const result = ref();
+
     const managepaperid = ref();
-    let words: Promise<{
-      result: string;
-      data: Array<{ title: string }>;
-      msg?: string;
-    }>;
-    if (props.type == 2) {
-      words = getTrueLinks(getApi);
-      words.then(function (response) {
-        result.value = response;
-        loading.value = false;
-      });
-    } else {
-      words = getTrueLinks(getApi2);
+    const result = ref();
+
+    // 获取列表信息
+    {
+      // 列表内容
+      let words: Promise<{
+        result: string;
+        data: Array<{ title: string }>;
+        msg?: string;
+      }>;
+      // 根据进入父组件传递值决定请求API
+      if (props.type == 2) {
+        words = getFirstPageNews(getApi);
+      } else {
+        words = getFirstPageNews(getApi2);
+      }
+      // 回传值传递，关闭遮罩
       words.then(function (response) {
         result.value = response;
         loading.value = false;
       });
     }
+    // 销毁words变量
+    
     let deleid = "er";
     const handleDelete = (ind: number, id: string): void => {
       seletindex = ind;
       deleid = id;
       dialogVisible.value = true;
     };
-    const sureDelet = (): void => {
+    const sureDelet = async () => {
       dialogVisible.value = false;
-      const res: Promise<{
-        result: string;
-        msg: string;
-      }> = deleNews(store.state.deleNewsApi, deleid, parseInt(props.type));
-      res.then(function (response) {
-        if (response["result"] == "0") {
-          result.value.splice(seletindex, 1);
-          return ElMessage(response["msg"]);
-        } else {
-          return ElMessage(response["msg"]);
-        }
-      });
+      const res = await deleNews(
+        store.state.deleNewsApi,
+        deleid,
+        parseInt(props.type)
+      );
+      if (res["result"] == "0") {
+        result.value.splice(seletindex, 1);
+        return ElMessage(res["msg"]);
+      } else {
+        return ElMessage(res["msg"]);
+      }
     };
     const gopaper = (url: string): void => {
       window.open(url, "_blank");

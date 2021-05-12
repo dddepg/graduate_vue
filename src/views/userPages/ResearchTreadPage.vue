@@ -31,6 +31,7 @@ import getAllSearch from "@/components/UserPage/ResearchTreadPage/getAllSearch.v
 import { defineComponent,ref } from "vue";
 
 export default defineComponent({
+  // 本校科研——科研动态界面
   name: "researchTreadPage",
   components: {
     getAllTread,

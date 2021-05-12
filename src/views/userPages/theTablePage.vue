@@ -33,9 +33,11 @@ import router from "@/router";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  // 我的主页——申请表管理页面
   components: { GetMyTable },
   name: "thetablePage",
   setup() {
+    // 点击新建申请表后跳转至新页面
     const creatTable = () => {
       router.push("./newTable/table");
     };

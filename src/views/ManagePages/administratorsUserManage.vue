@@ -36,6 +36,7 @@ import CreatUser from "@/components/ManagePage/creatUser.vue";
 
 export default defineComponent({
   name: "administratorsUserManage",
+  // 管理用户界面
   components: { GetAllUser, CreatUser },
   setup() {
     const store = useStore();

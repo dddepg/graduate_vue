@@ -25,9 +25,10 @@ import { ElMessage } from "element-plus";
 import SetManage from "@/components/SuperManagePage/SetManage.vue";
 
 export default defineComponent({
-  name: "administratorsUserManage",
+  name: "SuperadministratorsUserManage",
   components: { SetManage },
   setup() {
+    // 超管界面
     const store = useStore();
     if (parseInt(store.state.userpower) <= 2) {
       router.push("/");

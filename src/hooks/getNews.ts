@@ -1,5 +1,7 @@
 import axios from 'axios'
-const getTrueLinks = function (url: string) {
+
+// 获取首页的新闻消息
+const getFirstPageNews = function (url: string) {
     const word=axios.get(url)
         .then(function (response) {
             return response.data
@@ -11,4 +13,4 @@ const getTrueLinks = function (url: string) {
 }
 
 
-export {getTrueLinks}
+export {getFirstPageNews}

@@ -45,7 +45,7 @@
   </el-dialog>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onBeforeUpdate } from "vue";
 import { creatOneUser, creatMoreUser } from "@/hooks/creatUser";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
@@ -54,15 +54,42 @@ export default defineComponent({
   name: "creatUser",
   props: ["title", "which"],
   inject: ["reload"],
+  // 添加用户的组件，根据props传值确定
   setup(props) {
+    // 对话框开启flag
     const creatAUser = ref(false);
     const creatNumUser = ref(false);
     const { width, height } = useWindowSize();
+    // 设置对话框大小，初始加载时设置
     const dialogwidth = ref("30%");
+    {
+      const size = useWindowSize();
+      if (size.width.value < 600) {
+        dialogwidth.value = "100%";
+      } else if (size.width.value < 1200) {
+        dialogwidth.value = "60%";
+      } else {
+        dialogwidth.value = "30%";
+      }
+    }
+
+    // 每次关闭后更新对话框大小
+    onBeforeUpdate(() => {
+      const size = useWindowSize();
+      if (size.width.value < 600) {
+        dialogwidth.value = "100%";
+      } else if (size.width.value < 1200) {
+        dialogwidth.value = "60%";
+      }
+    });
+
+    // 新增一个用户时绑定的变量
     const form1 = {
       onename: "",
     };
     const f1 = ref(form1);
+
+    // 新增多个用户时绑定的变量
     const form2 = {
       numfirstname: 0,
       numlastname: 0,
@@ -75,7 +102,7 @@ export default defineComponent({
         res.then(function (response) {
           if (response["result"] == 1) {
             creatAUser.value = false;
-            store.state.adduser=!store.state.adduser
+            store.state.adduser = !store.state.adduser;
             return ElMessage("添加成功");
           } else {
             return ElMessage(response["msg"]);
@@ -90,7 +117,7 @@ export default defineComponent({
         res.then(function (response) {
           if (response["result"] == 1) {
             creatNumUser.value = false;
-            store.state.adduser=!store.state.adduser
+            store.state.adduser = !store.state.adduser;
             return ElMessage("添加成功");
           } else {
             return ElMessage(response["msg"]);
@@ -125,7 +152,7 @@ export default defineComponent({
       creat,
       close,
       open,
-      dialogwidth
+      dialogwidth,
     };
   },
 });

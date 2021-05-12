@@ -1,11 +1,13 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Login from '../views/Login.vue'
+// 路由配置页面,根路由直接加载
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Login',
     component: Login
   },
+  // 以下页面懒加载(会造成首页加载体验有所下降,或许将首页直接加载比较好)
   {
     path: '/User',
     name: 'User',

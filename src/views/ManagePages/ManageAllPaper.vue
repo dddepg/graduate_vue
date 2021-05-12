@@ -28,6 +28,7 @@ export default defineComponent({
   components: { ManageAllUserPaper },
   name: "manageAllPaperPage",
   setup() {
+    // 管理全部论文页面
     const flag = ref(true);
     const store = useStore();
     if (parseInt(store.state.userpower) == 1) {

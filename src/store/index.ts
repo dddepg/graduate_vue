@@ -1,10 +1,12 @@
 import { createStore } from 'vuex'
-import { createGlobalState, useStorage } from '@vueuse/core'
-export const useGlobalState = createGlobalState(
-  () => useStorage("state", {
-    username: "noname",
-  }),
-)
+// 另一种store用法,用起来没啥区别
+// import { createGlobalState, useStorage } from '@vueuse/core'
+// export const useGlobalState = createGlobalState(
+//   () => useStorage("state", {
+//     username: "noname",
+//   }),
+// )
+// 下面是整个页面所用的全局数据
 export default createStore({
   state: {
     username: "noname",
@@ -60,8 +62,8 @@ export default createStore({
     changeUserPowerApi: "https://dddepg.top/graduate/changeUserPowerApi",
     addNewsApi: "https://dddepg.top/graduate/addNewsApi",
     deleNewsApi:"https://dddepg.top/graduate/deleNewsApi",
-
-    testApi: "https://dddepg.top/graduate/userInfo",
+    //测试页面api
+    // testApi: "https://dddepg.top/graduate/userInfo",
   },
   mutations: {
     setUserName(state, name) {

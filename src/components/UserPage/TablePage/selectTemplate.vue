@@ -6,7 +6,7 @@
         ><el-image
           class="img"
           style="width: 250px; height: 250px"
-          :src="url1"
+          :src="preurl1[0]"
           :preview-src-list="preurl1"
         >
         </el-image
@@ -67,10 +67,9 @@ export default defineComponent({
     const store = useStore();
     store.state.tableNowAction = 0;
     store.state.selectTableType = 0;
-    const url1 = ref("https://dddepg.top/getimg/word1.png");
-    const url2 = ref("https://dddepg.top/getimg/word2.png");
+    // 显示申请表图片
     const preurl1 = ref(["https://dddepg.top/getimg/word1.png"]);
-    const preurl2 = ref(["https://dddepg.top/getimg/word2.png"]);
+    // const preurl2 = ref(["https://dddepg.top/getimg/word2.png"]);
     const dialogVisible = ref(false);
     const title = ref("");
     const opendialog = (word: string, type: number): void => {
@@ -88,10 +87,9 @@ export default defineComponent({
       router.push("/User/newTable/basic");
     };
     return {
-      url1,
-      url2,
+
       preurl1,
-      preurl2,
+      // preurl2,
       dialogVisible,
       title,
       opendialog,

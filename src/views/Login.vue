@@ -1,89 +1,101 @@
 <template>
-  <el-container>
-    <el-header
-      ><h1 class="title">科研管理系统</h1>
-      <h2></h2>
-    </el-header>
-    <el-main>
-      <el-row class="loginrow" type="flex" justify="center">
-        <el-col
-          :span="6"
-          :offset="15"
-          :xs="{ span: 20, offset: 2 }"
-          class="logincol"
-        >
-          <div id="loginarea">
-            <el-row>
-              <el-col :span="24">
-                <h1 class="logintitle">用户登录</h1>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="18" :offset="3" class="inputarea">
-                <el-input
-                  placeholder="请输入账号"
-                  v-model="usernum"
-                  clearable
-                  @input="setUserName(usernum)"
-                  class="logininput"
-                >
-                  <template #prepend>
-                    <i class="iconfont icon-yonghu"></i>
-                  </template>
-                </el-input>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="18" :offset="3" class="inputarea">
-                <el-input
-                  placeholder="请输入密码"
-                  v-model="password"
-                  show-password
-                  @input="setPassWord(password)"
-                  class="logininput"
-                >
-                  <template #prepend>
-                    <i class="iconfont icon-mima"></i>
-                  </template>
-                </el-input>
-              </el-col>
-            </el-row>
-            <el-row type="flex" justify="center" class="forgetpassword">
-              <el-col :span="4" :offset="10">
-                <forget-dio :title="tit" :which="1" />
-              </el-col>
-            </el-row>
-            <el-row type="flex" justify="space-around" class="loginbutton">
-              <el-col :span="12">
-                <el-button @click="postLogin()">登录</el-button>
-              </el-col>
-            </el-row>
-          </div>
-        </el-col>
-      </el-row>
-    </el-main>
-  </el-container>
+  <div
+    class="loadback"
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
+    <el-container>
+      <el-header
+        ><h1 class="title">科研管理系统</h1>
+        <h2></h2>
+      </el-header>
+      <el-main>
+        <el-row class="loginrow" type="flex" justify="center">
+          <el-col
+            :span="6"
+            :offset="15"
+            :xs="{ span: 20, offset: 2 }"
+            class="logincol"
+          >
+            <div id="loginarea">
+              <el-row>
+                <el-col :span="24">
+                  <h1 class="logintitle">用户登录</h1>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="18" :offset="3" class="inputarea">
+                  <el-input
+                    placeholder="请输入账号"
+                    v-model="usernum"
+                    clearable
+                    @input="setUserName(usernum)"
+                    class="logininput"
+                  >
+                    <template #prepend>
+                      <i class="iconfont icon-yonghu"></i>
+                    </template>
+                  </el-input>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="18" :offset="3" class="inputarea">
+                  <el-input
+                    placeholder="请输入密码"
+                    v-model="password"
+                    show-password
+                    @input="setPassWord(password)"
+                    class="logininput"
+                  >
+                    <template #prepend>
+                      <i class="iconfont icon-mima"></i>
+                    </template>
+                  </el-input>
+                </el-col>
+              </el-row>
+              <el-row type="flex" justify="center" class="forgetpassword">
+                <el-col :span="4" :offset="10" :xs="{ span: 16, offset: 8 }">
+                  <forget-dio :title="tit" :which="1" />
+                </el-col>
+              </el-row>
+              <el-row type="flex" justify="space-around" class="loginbutton">
+                <el-col :span="12">
+                  <el-button @click="postLogin()">登录</el-button>
+                </el-col>
+              </el-row>
+            </div>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import { mapMutations } from "vuex";
 import { ElMessage } from "element-plus";
-import axios from "axios";
 import router from "@/router";
 import { useStore } from "vuex";
-import { ElLoading } from "element-plus";
 import { useCookies } from "@vueuse/integrations";
 import forgetDio from "@/components/forgetDio.vue";
-import qs from "qs";
+import { gologin } from "@/hooks/login";
+// 登录界面
 export default defineComponent({
   name: "Login",
+  // 加载组件：忘记密码组件
   components: { forgetDio },
   setup() {
     const store = useStore();
     const cookie = useCookies();
     const usernum = ref("");
     const password = ref("");
+    const loading = ref(false);
+
+    // 当浏览器内cookie未过期时，直接访问系统
+    // 安全性较低，日后建议修改
     onMounted(() => {
       if (cookie.get("user")) {
         store.commit("setUserName", cookie.get("user")["user"]);
@@ -95,35 +107,30 @@ export default defineComponent({
         router.push("/User/first");
       }
     });
+    // 登录操作，不进行表单格式验证
     const postLogin = async () => {
-      const loadingInstance = ElLoading.service({
-        lock: false,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      // 开启遮罩
+      loading.value = true;
       try {
-        const data = {
-          username: store.state.username,
-          password: store.state.password,
-        };
-        const result = await axios({
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          method: "post",
-          url: store.state.loginApi,
-          data: qs.stringify(data),
-        });
-        if (result.data["result"] == "2") {
-          loadingInstance.close();
+        // 发送登录信息并取得结果
+        const result = await gologin(
+          store.state.loginApi,
+          store.state.username,
+          store.state.password
+        );
+        // 验证
+        if (result["result"] == "2") {
+          loading.value = false;
           return ElMessage("用户名或密码错误");
-        } else if (result.data["result"] == "1") {
+        } else if (result["result"] == "1") {
+          // 验证成功，存储基本信息
           store.commit("setLogin", true);
-          store.state.userTruename = result.data["userTrueName"];
-          store.state.userid = result.data["userID"];
-          store.state.userpower = parseInt(result.data["userPower"]);
-          loadingInstance.close();
+          store.state.userTruename = result["userTrueName"];
+          store.state.userid = result["userID"];
+          store.state.userpower = parseInt(result["userPower"]);
+          // 关闭遮罩
+          loading.value = false;
+          // 设置cookie
           cookie.set(
             "user",
             {
@@ -134,27 +141,25 @@ export default defineComponent({
             },
             { maxAge: 86400 }
           );
-          if (store.state.userpower == 1) {
-            router.push("/User/first");
-          } else {
-            router.push("/User/first");
-          }
+          // 前往首页
+          router.push("/User/first");
         }
       } catch {
-        loadingInstance.close();
+        loading.value = false;
         return ElMessage("哎呀，网络似乎有问题呢");
       }
-
-      return null;
     };
+    // 首页按钮上的文字
     const tit = ref("忘记密码");
     return {
       usernum,
       password,
       postLogin,
       tit,
+      loading,
     };
   },
+  // 获取store中的设置方法（正确的使用方法）
   methods: mapMutations(["setUserName", "setPassWord", "setLogin"]),
 });
 </script>
@@ -170,7 +175,7 @@ max_size = 100%
   background-image url('../assets/backgroung.jpg')
   background-size 100%, cover
 
-.loginrow
+.loadback, .loginrow
   height max_size
 
 .logincol

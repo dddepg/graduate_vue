@@ -1,21 +1,21 @@
 <template>
   <div class="research_title_word_s ">
-    <h1 class="research_title_word_keyan hidden-md-and-up">科研动态</h1>
+    <h1 class="research_title_word_keyan hidden-md-and-up">{{titles.pcTitle}}</h1>
   </div>
   <div class="research_backarea">
     <el-row type="flex" justify="space-between" class="research_row">
       <el-col :span="4" class="research_title hidden-sm-only">
         <div class="research_title_word hidden-sm-only">
-          <h1 class="research_title_word_keyan">科研</h1>
+          <h1 class="research_title_word_keyan">{{titles.mobileTitle1}}</h1>
         </div>
         <div class="research_title_word hidden-sm-only">
-          <h1 class="research_title_word_xianzhuang">动态</h1>
+          <h1 class="research_title_word_xianzhuang">{{titles.mobileTitle2}}</h1>
         </div>
       </el-col>
       <el-col :xs="24" :md="20" :lg="20" :xl="20" :sm="24">
         <Suspense>
           <template #default>
-            <get-tread />
+            <get-first-page-news :type="titles.pcTitle" />
           </template>
           <template #fallback>
             <el-skeleton animated />
@@ -28,13 +28,25 @@
 
 <script>
 import { defineComponent } from "vue";
-import GetTread from "./ResearchTrend/getTread.vue";
+
 import "element-plus/lib/theme-chalk/display.css";
+import GetFirstPageNews from "./getFirstPageNews/getFirstPageNews.vue";
 export default defineComponent({
-  name: "researchTrend",
+  props: ["type"],
+  name: "FirstPageNews",
   components: {
-    GetTread,
+    GetFirstPageNews
   },
+  setup(props){
+    const titles={
+      pcTitle:props.type,
+      mobileTitle1:props.type[0]+props.type[1],
+      mobileTitle2:props.type[2]+props.type[3],
+    }
+    return {
+      titles,
+    }
+  }
 });
 </script>
 

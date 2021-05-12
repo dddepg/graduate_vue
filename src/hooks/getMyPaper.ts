@@ -1,12 +1,10 @@
-import axios from 'axios'
+// 论文获取与权限管理方法
+import {myaxios} from "@/hooks/myAxios"
 import qs from "qs"
 
-const instance = axios.create({
-    timeout: 1000,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-});
+// 获取论文
 const getMyPaper = function (url: string, theid: string) {
-    const word = instance.post(url, qs.stringify({ id: theid }))
+    const word = myaxios.post(url, qs.stringify({ id: theid }))
         .then(function (response) {
             return response.data
         })
@@ -15,9 +13,9 @@ const getMyPaper = function (url: string, theid: string) {
         });
     return word
 }
-
+// 更新权限
 const updatestate = function (url: string, id: string, state: string) {
-    const word = instance.post(url, qs.stringify({ id: id, state: state }))
+    const word = myaxios.post(url, qs.stringify({ id: id, state: state }))
         .then(function (response) {
             return response.data
         })

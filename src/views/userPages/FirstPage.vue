@@ -1,4 +1,5 @@
 <template>
+<!-- 正常状态的跑马灯 -->
   <div class="backarea">
     <el-carousel  indicator-position="none" type="card" class="hidden-xs-only largecarousel">
       <el-carousel-item >
@@ -14,6 +15,7 @@
         <div class="head_carousel head_img_4"></div>
       </el-carousel-item>
     </el-carousel>
+    <!-- 手机端的跑马灯 -->
     <el-carousel  trigger="click" class="hidden-sm-and-up smallcarousel">
       <el-carousel-item >
         <div class="head_carousel head_img_1"></div>
@@ -28,32 +30,30 @@
         <div class="head_carousel head_img_4"></div>
       </el-carousel-item>
     </el-carousel>
-    <research-trend />
-    <newly-research />
-    <friendly-link />
+    <!-- 新闻列表 -->
+    <first-page-news type="科研动态"/>
+    <first-page-news type="最新研究"/>
+    <friendly-link/>
     <div class="buttonback"></div>
   </div>
 </template>
 
 <script>
-import NewlyResearch from "@/components/UserPage/newlyResearch.vue";
 import { defineComponent } from "vue";
-import friendlyLink from "../../components/UserPage/friendlyLink";
-import researchTrend from "../../components/UserPage/researchTrend";
 import 'element-plus/lib/theme-chalk/display.css';
+import FirstPageNews from "@/components/UserPage/FirstPageNews.vue";
+import FriendlyLink from "@/components/UserPage/friendlyLink.vue";
 export default defineComponent({
   name: "FirstPage",
   components: {
-    friendlyLink,
-    researchTrend,
-    NewlyResearch,
+    FirstPageNews,
+    FriendlyLink,
   },
 });
 </script>
 <style lang="stylus" scoped>
 .backarea
   height 100%
-
 .largecarousel
   height 45%
 .smallcarousel

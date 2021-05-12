@@ -47,13 +47,16 @@ import { ElMessage } from "element-plus";
 import router from "@/router";
 export default defineComponent({
   components: { AddNewly, GetAllNewsMan },
-  name: "myPaperPage",
+  name: "manageNews",
   setup() {
+    // 管理新闻界面
     const store = useStore();
+    // 访问权限判断
     if (parseInt(store.state.userpower) == 1) {
       router.push("/");
       return ElMessage("您没有权限访问该页面");
     }
+    // 同样设置进入时激活的页面
     const active=ref('active')
     return {
       store,

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-button plain @click="click(which)">{{title}}</el-button>
+    <el-button plain @click="click(which)">{{ title }}</el-button>
   </div>
 
-  <el-dialog title="安全验证" v-model="testMan" width="30%">
+  <el-dialog title="安全验证" v-model="testMan" :width="dioSize">
     <span>为了您的安全，请验证身份</span>
     <el-form
       ref="userform"
@@ -31,7 +31,7 @@
       </span>
     </template>
   </el-dialog>
-  <el-dialog title="修改密码" v-model="changeWord" width="30%">
+  <el-dialog title="修改密码" v-model="changeWord" :width="dioSize">
     <el-form
       ref="ruleForm"
       :model="passf"
@@ -59,19 +59,24 @@
   </el-dialog>
 </template>
 <script >
-import { defineComponent, ref } from "vue";
+import {
+  defineComponent,
+  ref,
+  onBeforeUpdate,
+} from "vue";
 import { testTrue, changePass } from "@/hooks/managePassWord";
 import { ElMessage } from "element-plus";
 import { useCookies } from "@vueuse/integrations";
 import { useStore } from "vuex";
 import router from "@/router";
+import { useWindowSize } from "@vueuse/core";
+// 忘记密码组件
 export default defineComponent({
   name: "passwordchange",
+  // 父组件传递参数，确定显示对话框类型
   props: ["title", "which"],
   setup(props) {
-    const cookie = useCookies();
-    // cookie.remove('user')
-    // console.log(props.title);
+    
     const testMan = ref(false);
     const changeWord = ref(false);
     const store = useStore();
@@ -81,6 +86,29 @@ export default defineComponent({
       email: "",
     };
     const f = ref(form);
+    // 设置对话框大小，初始加载时设置
+    const dioSize = ref("30%");
+    {
+      const size = useWindowSize();
+      if (size.width.value < 600) {
+        dioSize.value = "100%";
+      } else if (size.width.value < 1200) {
+        dioSize.value = "60%";
+      }else{
+        dioSize.value = "30%";
+      }
+    }
+
+    // 每次关闭后更新对话框大小
+    onBeforeUpdate(() => {
+      const size = useWindowSize();
+      if (size.width.value < 600) {
+        dioSize.value = "100%";
+      } else if (size.width.value < 1200) {
+        dioSize.value = "60%";
+      }
+    });
+
     const click = (which) => {
       if (which == "1") {
         testMan.value = true;
@@ -120,7 +148,7 @@ export default defineComponent({
     const validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== passf.value['pass']) {
+      } else if (value !== passf.value["pass"]) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -136,17 +164,21 @@ export default defineComponent({
       email: [{ required: true, message: "不能为空" }],
     };
 
+    // 修改密码方法
+    const cookie = useCookies();
     const postChangePassWord = () => {
+      // 判断发起修改的位置
+      // 若f.value存在，说明在首页未登录状态下发起修改申请，此时store中不存在用户名
       if (f.value["name"] != "") {
         const res = changePass(
           store.state.ChangePassApi,
           passf.value["checkPass"],
           f.value["name"]
         );
+        // 修改成功，关闭对话框，返回首页，弹出“修改成功”
         res.then(function (response) {
           if (response["result"] == "0") {
             changeWord.value = false;
-            cookie.remove("user");
             router.go("/");
             return ElMessage(response["msg"]);
           } else {
@@ -154,6 +186,7 @@ export default defineComponent({
           }
         });
       } else {
+        // 若不存在，证明用户在用户界面发起修改申请，此时用户名可通过store获取
         const res = changePass(
           store.state.ChangePassApi,
           passf.value["checkPass"],
@@ -182,6 +215,7 @@ export default defineComponent({
       f,
       passf,
       postChangePassWord,
+      dioSize,
     };
   },
   methods: {

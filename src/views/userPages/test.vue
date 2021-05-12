@@ -41,6 +41,7 @@
   </div>
 </template>
 <script >
+// 测试用文件，暂时废弃中
 // import getMyTable from "@/components/UserPage/TablePage/getMyTable"
 import forgetDio from "@/components/forgetDio.vue";
 import { defineComponent, ref } from "vue";

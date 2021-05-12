@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// 友情链接组件，仅用于展示一些页面底部的友情链接。
 export default {};
 </script>
 

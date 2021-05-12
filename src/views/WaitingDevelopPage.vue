@@ -8,6 +8,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "waitDevelopPage",
 });
+// 未开发页面占位用，暂时废弃中
 </script>
 
 <style lang="stylus" scoped>

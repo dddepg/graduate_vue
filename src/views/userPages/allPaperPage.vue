@@ -102,14 +102,16 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "allPaperPage",
+  // 全部论文界面，通过设置不同的type显示不同的结果
+  // 当时全部设置为通过type来决定结果时，发生了报错，因此全部论文单独列出
   components: {
     GetAllPaper,
     GetTypePaper,
   },
   setup() {
+    // 设置进入该页面时激活的页面
     const active = ref("allpaper");
     const name = ref();
-
     return { active, name };
   },
 });

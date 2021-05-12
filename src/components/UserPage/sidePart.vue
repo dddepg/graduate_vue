@@ -67,10 +67,12 @@
 <script>
 import { defineComponent } from "vue";
 import {useStore} from "vuex"
+// 侧边栏组件
 export default defineComponent({
   name: "sidePart",
   setup(){
     const store = useStore()
+    // 获取用户权限
     const power =parseInt(store.state.userpower)
     return {power}
   }
@@ -81,4 +83,7 @@ export default defineComponent({
 .el-menu
   margin-top 20px
   border-right solid 1px rgb(74,82,89)
+.el-submenu .el-menu-item
+  padding 0 0 0 40%
+
 </style>

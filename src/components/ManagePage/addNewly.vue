@@ -31,6 +31,8 @@ import { addNews } from "@/hooks/creatUser";
 import { useWindowSize } from "@vueuse/core";
 export default defineComponent({
   name: "addNewly",
+  // 添加新闻页面
+  // 刘老师似乎用不到这个功能
   setup() {
     const store = useStore();
     const addN = ref(false);
@@ -56,6 +58,7 @@ export default defineComponent({
       f.value["title"] = "";
       f.value["url"] = "";
     };
+    // 新增新闻方法
     const creat = () => {
       const res = addNews(
         store.state.addNewsApi,

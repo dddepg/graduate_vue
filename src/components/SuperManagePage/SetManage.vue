@@ -42,6 +42,7 @@ import { getAllInfo } from "@/hooks/getInfo";
 import { changeUserPower } from "@/hooks/managePassWord";
 import { ElMessage } from "element-plus";
 export default defineComponent({
+  // 设置管理员
   name: "setManage",
   setup() {
     const loading = ref(true);

@@ -15,6 +15,7 @@
 import { defineComponent } from "vue";
 import getUserInfo from "@/components/UserPage/getUserInfo/getUserInfo.vue";
 export default defineComponent({
+  // “我的主页——用户管理”界面
   components: { getUserInfo },
   name: "userManagePage",
 });

@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1969464",
+      "name": "登出",
+      "font_class": "dengchu",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
       "icon_id": "19695144",
       "name": "下载",
       "font_class": "download",

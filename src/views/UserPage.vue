@@ -29,6 +29,7 @@ export default defineComponent({
     HeadPart,
   },
   setup() {
+    // 状态判断，若未登录则返回首页
     const store = useStore();
     if (!store.state.islogin) router.push("/");
   },

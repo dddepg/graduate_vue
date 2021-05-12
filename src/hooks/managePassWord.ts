@@ -1,12 +1,9 @@
-import axios from 'axios'
+import {myaxios} from "@/hooks/myAxios"
 import qs from "qs"
 
-const instance = axios.create({
-    timeout: 1000,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-});
+
 const testTrue = function (url: string, id: string, email: string, tele: string) {
-    const word = instance.post(url, qs.stringify({ id: id, email: email, tele: tele }))
+    const word = myaxios.post(url, qs.stringify({ id: id, email: email, tele: tele }))
         .then(function (response) {
             return response.data
         })
@@ -17,7 +14,7 @@ const testTrue = function (url: string, id: string, email: string, tele: string)
 }
 
 const changePass = function (url: string, newPassword: string, id: string) {
-    const word = instance.post(url, qs.stringify({ newPass: newPassword, id: id }))
+    const word = myaxios.post(url, qs.stringify({ newPass: newPassword, id: id }))
         .then(function (response) {
             return response.data
         })
@@ -28,7 +25,7 @@ const changePass = function (url: string, newPassword: string, id: string) {
 }
 
 const rebackUser = function (url: string, id: string) {
-    const word = instance.post(url, qs.stringify({ id: id }))
+    const word = myaxios.post(url, qs.stringify({ id: id }))
         .then(function (response) {
             return response.data
         })
@@ -38,7 +35,7 @@ const rebackUser = function (url: string, id: string) {
     return word
 }
 const changeUserPower = function (url: string, id: string, power: number) {
-    const word = instance.post(url, qs.stringify({ id: id, power: power }))
+    const word = myaxios.post(url, qs.stringify({ id: id, power: power }))
         .then(function (response) {
             return response.data
         })

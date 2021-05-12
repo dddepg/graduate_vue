@@ -32,6 +32,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
+// 新建申请表页面上方进度条组件
 export default defineComponent({
   name: "tablePage",
   setup() {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+// “我的主页——获取用户信息”
 const getInfo = function (url: string) {
     const word = axios.get(url)
         .then(function (response) {
@@ -9,7 +10,7 @@ const getInfo = function (url: string) {
         });
     return word
 }
-
+// 管理员页面——获取用户信息
 const getAllInfo = function (url: string) {
     const word = axios.get(url)
         .then(function (response) {
